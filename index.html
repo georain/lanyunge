@@ -928,6 +928,38 @@ function navigateTo(pageName) {
   });
 }
 
+function devtoolsRedirect() {
+  window.location.href = 'https://www.bilibili.com/video/BV1GJ411x7h7/';
+}
+
+/* 愚人节彩蛋：4 月 1 日（设备时间）自动跳转 */
+(function() {
+  var now = new Date();
+  if (now.getMonth() === 3 && now.getDate() === 1) {
+    var key = 'aprilFools' + now.getFullYear();
+    if (!localStorage.getItem(key)) {
+      localStorage.setItem(key, '1');
+      setTimeout(function() {
+        window.location.href = 'https://www.bilibili.com/video/BV1GJ411x7h7/';
+      }, 3000);
+    }
+  }
+})();
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'F12') {
+    e.preventDefault();
+    devtoolsRedirect();
+    return;
+  }
+  if (e.ctrlKey || e.metaKey) {
+    if (e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C')) {
+      e.preventDefault();
+      devtoolsRedirect();
+    }
+  }
+});
+
 function copyText(text) {
   navigator.clipboard.writeText(text).then(function(){
     var t = document.getElementById('toast');
