@@ -1,0 +1,1209 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>澜云阁 | Minecraft公益服</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']],
+    displayMath: [['$$', '$$'], ['\\[', '\\]']],
+    processEscapes: true
+  },
+  svg: { fontCache: 'global' },
+  options: {
+    ignoreHtmlClass: 'no-mathjax',
+    processHtmlClass: 'mathjax-process'
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" id="MathJax-script" async></script>
+<style>
+@font-face {
+  font-family: 'Zpix';
+  src: url('https://cdn.jsdelivr.net/npm/zpix@3.1.0/dist/Zpix.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display6: swap;
+}
+:root {
+  --bg: #fff;
+  --surface: #f8f9fa;
+  --border: #dadce0;
+  --border-light: #f1f3f4;
+  --text: #202124;
+  --text-secondary: #5f6368;
+  --text-tertiary: #9aa0a6;
+  --brand: #1a1a1a;
+  --btn-bg: #202124;
+  --btn-text: #fff;
+  --toast-bg: #202124;
+  --toast-text: #fff;
+  --link: #1a73e8;
+  --shadow: rgba(60,64,67,.08);
+  --icon-stroke: #5f6368;
+  --hover-text: #202124;
+  --font-pixel: 'Zpix', monospace;
+  --font-body: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+.dark {
+  --bg: #0d0d0d;
+  --surface: #1a1a1a;
+  --border: #2d2d2d;
+  --border-light: #222;
+  --text: #e8eaed;
+  --text-secondary: #9aa0a6;
+  --text-tertiary: #5f6368;
+  --brand: #e8eaed;
+  --btn-bg: #e8eaed;
+  --btn-text: #0d0d0d;
+  --toast-bg: #e8eaed;
+  --toast-text: #0d0d0d;
+  --link: #8ab4f8;
+  --shadow: rgba(0,0,0,.3);
+  --icon-stroke: #9aa0a6;
+  --hover-text: #e8eaed;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: var(--font-body);
+  background: var(--bg); color: var(--text);
+  font-weight: 400;
+  display: flex; min-height: 100vh;
+  transition: background .5s ease, color .5s ease;
+}
+.pixel { font-family: var(--font-pixel); letter-spacing: 0; }
+
+.sidebar {
+  width: 280px; flex-shrink: 0;
+  border-right: 1px solid var(--border);
+  padding: 48px 36px;
+  display: flex; flex-direction: column;
+  position: sticky; top: 0; height: 100vh;
+  transition: border-color .5s ease;
+}
+.sidebar .logo h1 {
+  font-family: var(--font-pixel);
+  font-size: 24px; font-weight: 400;
+  color: var(--brand);
+  transition: color .5s ease;
+  animation: fadeSlideIn .8s ease both;
+  line-height: 1.6;
+}
+.sidebar .logo p {
+  font-family: var(--font-pixel);
+  font-size: 9px; font-weight: 400;
+  color: var(--text-tertiary);
+  margin-top: 4px;
+  transition: color .5s ease;
+  animation: fadeSlideIn .8s .1s ease both;
+}
+.sidebar .divider {
+  width: 24px; height: 1px;
+  background: var(--border);
+  margin: 32px 0;
+  transition: background .5s ease;
+}
+.sidebar nav { flex: 1; }
+.sidebar nav a {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 13px; font-weight: 400;
+  color: var(--text-secondary);
+  text-decoration: none;
+  padding: 10px 0;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: color .3s, transform .2s;
+  animation: fadeSlideIn .6s ease both;
+}
+.sidebar nav a:nth-child(1) { animation-delay: .15s; }
+.sidebar nav a:nth-child(2) { animation-delay: .2s; }
+.sidebar nav a:nth-child(3) { animation-delay: .25s; }
+.sidebar nav a:nth-child(4) { animation-delay: .3s; }
+.sidebar nav a:hover { color: var(--hover-text); transform: translateX(4px); }
+.sidebar nav a.active { color: var(--hover-text); font-weight: 500; }
+.sidebar-bottom {
+  padding: 16px 0 0;
+  border-top: 1px solid var(--border-light);
+  display: flex; flex-direction: column; gap: 18px;
+  transition: border-color .5s ease;
+}
+.sidebar .status {
+  display: flex; align-items: center; gap: 8px;
+}
+.sidebar .status .dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: #34a853;
+  animation: pulse 2s infinite;
+}
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.5} }
+.sidebar .status span {
+  font-size: 12px; font-weight: 400;
+  color: var(--text-secondary); letter-spacing: 1px;
+  font-family: var(--font-body);
+  transition: color .5s ease;
+}
+
+.sidebar-row { display: flex; align-items: center; gap: 16px; }
+.sidebar-row > div { flex-shrink: 0; }
+
+.lang-toggle {
+  display: flex; gap: 6px;
+}
+.lang-toggle span {
+  font-size: 11px; font-weight: 400;
+  font-family: var(--font-pixel);
+  color: var(--text-tertiary);
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: color .3s, background .3s;
+}
+.lang-toggle span:hover { color: var(--hover-text); }
+.lang-toggle span.active {
+  color: var(--hover-text);
+  background: var(--border-light);
+}
+
+.theme-toggle {
+  display: flex; align-items: center; gap: 10px;
+  cursor: pointer; user-select: none;
+  font-size: 12px; font-weight: 400;
+  color: var(--text-secondary);
+  letter-spacing: 1px;
+  font-family: var(--font-body);
+  transition: color .3s;
+}
+.theme-toggle:hover { color: var(--hover-text); }
+.theme-toggle .track {
+  width: 38px; height: 20px;
+  border-radius: 10px;
+  background: var(--border);
+  position: relative;
+  transition: background .4s ease;
+}
+.theme-toggle .thumb {
+  width: 16px; height: 16px;
+  border-radius: 50%;
+  background: #fff;
+  position: absolute; top: 2px; left: 2px;
+  transition: transform .4s cubic-bezier(.4,0,.2,1), background .4s;
+  box-shadow: 0 1px 3px rgba(0,0,0,.15);
+}
+.dark .theme-toggle .thumb { transform: translateX(18px); background: #0d0d0d; }
+.dark .theme-toggle .track { background: #e8eaed; }
+
+.main { flex: 1; min-width: 0; position: relative; overflow: hidden; }
+
+.page {
+  position: absolute; top: 0; left: 0; width: 100%;
+  opacity: 0; visibility: hidden;
+  transform: translateY(16px);
+  transition: opacity .45s cubic-bezier(.22,1,.36,1), transform .45s cubic-bezier(.22,1,.36,1), visibility 0s .45s;
+}
+.page.active {
+  position: relative;
+  opacity: 1; visibility: visible;
+  transform: translateY(0);
+  transition: opacity .45s cubic-bezier(.22,1,.36,1) .1s, transform .45s cubic-bezier(.22,1,.36,1) .1s, visibility 0s 0s;
+}
+
+.hero-strip {
+  padding: 80px 64px 48px;
+  border-bottom: 1px solid var(--border-light);
+  transition: border-color .5s ease;
+  animation: fadeSlideIn .6s ease both;
+}
+.hero-strip h2 {
+  font-family: var(--font-pixel);
+  font-size: 28px; font-weight: 400;
+  line-height: 1.6;
+  color: var(--brand);
+  transition: color .5s ease;
+}
+.hero-strip .sub {
+  font-family: var(--font-body);
+  font-size: 15px; font-weight: 300;
+  color: var(--text-secondary); margin-top: 8px;
+  letter-spacing: 2px;
+  transition: color .5s ease;
+}
+
+.cards-row {
+  display: flex; gap: 24px;
+  padding: 48px 64px; flex-wrap: wrap;
+}
+.card {
+  flex: 1; min-width: 220px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 48px 36px;
+  transition: box-shadow .35s ease, transform .35s ease, border-color .5s ease, background .5s ease;
+}
+.card:hover {
+  box-shadow: 0 1px 3px var(--shadow), 0 4px 16px var(--shadow);
+  transform: translateY(-2px);
+}
+.card .icon {
+  width: 40px; height: 40px;
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 28px;
+  transition: transform .3s ease;
+}
+.card:hover .icon { transform: scale(1.1); }
+.card .icon svg { transition: stroke .5s ease; }
+.card h3 {
+  font-family: var(--font-pixel);
+  font-size: 10px; font-weight: 400;
+  color: var(--text-secondary);
+  margin-bottom: 12px;
+}
+.card .value {
+  font-family: var(--font-pixel);
+  font-size: 18px; font-weight: 400;
+  color: var(--text);
+  word-break: break-all;
+  line-height: 1.6;
+  transition: color .5s ease;
+}
+.card .value.copy { cursor: pointer; position: relative; }
+.card .value.copy::after {
+  content: attr(data-tip);
+  position: absolute;
+  top: -28px; left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-body);
+  font-size: 11px; font-weight: 400;
+  color: var(--text-secondary);
+  background: var(--border-light);
+  padding: 4px 12px; border-radius: 6px;
+  opacity: 0; pointer-events: none;
+  transition: opacity .2s;
+  white-space: nowrap;
+}
+.card .value.copy:hover::after { opacity: 1; }
+
+.dl-section {
+  padding: 48px 64px;
+  animation: fadeSlideIn .6s .1s ease both;
+}
+.dl-card {
+  background: var(--surface);
+  border-radius: 24px;
+  padding: 56px 48px;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 32px;
+  transition: background .5s ease;
+}
+.dl-card .text h2 {
+  font-family: var(--font-pixel);
+  font-size: 20px; font-weight: 400;
+  line-height: 1.6;
+  color: var(--brand);
+  margin-bottom: 6px;
+  transition: color .5s ease;
+}
+.dl-card .text p {
+  font-family: var(--font-body);
+  font-size: 14px; font-weight: 300;
+  color: var(--text-secondary); letter-spacing: 2px;
+  transition: color .5s ease;
+}
+.dl-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--btn-bg); color: var(--btn-text);
+  text-decoration: none;
+  font-family: var(--font-pixel);
+  font-size: 11px; font-weight: 400;
+  padding: 14px 28px;
+  border-radius: 12px;
+  transition: transform .3s, box-shadow .3s, background .5s ease, color .5s ease;
+  flex-shrink: 0;
+}
+.dl-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px var(--shadow);
+}
+.dl-btn svg { width: 16px; height: 16px; }
+
+.features {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  padding: 0 64px 48px;
+}
+.feature-item {
+  text-align: center; padding: 36px 20px;
+  transition: transform .3s ease;
+  animation: fadeSlideIn .6s ease both;
+}
+.feature-item:nth-child(1) { animation-delay: .2s; }
+.feature-item:nth-child(2) { animation-delay: .3s; }
+.feature-item:nth-child(3) { animation-delay: .4s; }
+.feature-item:hover { transform: translateY(-4px); }
+.feature-item .label {
+  font-family: var(--font-pixel);
+  font-size: 28px; font-weight: 400;
+  color: var(--text);
+  transition: color .5s ease;
+  line-height: 1.6;
+}
+.feature-item .desc {
+  font-family: var(--font-body);
+  font-size: 12px; font-weight: 400;
+  color: var(--text-secondary); margin-top: 6px;
+  letter-spacing: 1px;
+  transition: color .5s ease;
+}
+
+.info-page .info-grid {
+  display: flex; gap: 24px;
+  padding: 80px 64px; flex-wrap: wrap;
+}
+.info-page .info-grid .card {
+  animation: fadeSlideIn .6s ease both;
+}
+.info-page .info-grid .card:nth-child(1) { animation-delay: .1s; }
+.info-page .info-grid .card:nth-child(2) { animation-delay: .2s; }
+.info-page .info-grid .card:nth-child(3) { animation-delay: .3s; }
+
+.ai-frame-wrap {
+  padding: 48px 64px 64px;
+  animation: fadeSlideIn .6s .1s ease both;
+}
+.ai-app .material-icons {
+  font-size: 24px;
+  vertical-align: middle;
+  line-height: 1;
+}
+.ai-app {
+  --bg: #ffffff;
+  --surface: #fafafa;
+  --surface-hover: #f4f4f4;
+  --border: #eaeaea;
+  --border-strong: #d9d9d9;
+  --text: #111111;
+  --text-secondary: #5a5a5a;
+  --text-tertiary: #9a9a9a;
+  --send-bg: #111111;
+  --send-text: #ffffff;
+  --radius-lg: 28px;
+  --radius-md: 18px;
+  --radius-sm: 12px;
+  --shadow-sm: 0 2px 8px rgba(0,0,0,0.03);
+  --shadow-md: 0 8px 24px rgba(0,0,0,0.05);
+  --shadow-lg: 0 16px 40px rgba(0,0,0,0.08);
+  --transition-fast: 0.2s cubic-bezier(0.2,0,0,1);
+  --transition-smooth: 0.35s cubic-bezier(0.2,0,0,1);
+  --transition-bounce: 0.45s cubic-bezier(0.34,1.56,0.64,1);
+  --color-info: #007aff;
+  --color-warn: #ff9500;
+  --color-error: #ff3b30;
+  color: var(--text);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background .5s ease, color .5s ease;
+}
+.dark .ai-app {
+  --bg: #161616;
+  --surface: #1f1f1f;
+  --surface-hover: #262626;
+  --border: #2c2c2c;
+  --border-strong: #3a3a3a;
+  --text: #e8eaed;
+  --text-secondary: #9aa0a6;
+  --text-tertiary: #6b7075;
+  --send-bg: #e8eaed;
+  --send-text: #161616;
+  --shadow-sm: 0 2px 8px rgba(0,0,0,0.25);
+  --shadow-md: 0 8px 24px rgba(0,0,0,0.4);
+  --shadow-lg: 0 16px 40px rgba(0,0,0,0.55);
+  --color-info: #64b5f6;
+  --color-warn: #ffb74d;
+  --color-error: #ff6b60;
+}
+.ai-app .container {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  background: var(--bg);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-md);
+  padding: 1.8rem 1.6rem 1.5rem;
+  transition: box-shadow var(--transition-smooth), border-color var(--transition-fast), background .5s ease;
+}
+.ai-app .container:focus-within { box-shadow: var(--shadow-lg); border-color: var(--border-strong); }
+.ai-app .tabs { display: flex; gap: 4px; margin-bottom: 1.25rem; border-bottom: 1px solid var(--border); }
+.ai-app .tab-btn {
+  display: flex; align-items: center; gap: 6px; padding: 0.7rem 1.2rem;
+  background: none; border: none; font-family: 'Inter', sans-serif;
+  font-size: 0.85rem; font-weight: 500; color: var(--text-tertiary);
+  cursor: pointer; border-bottom: 2px solid transparent;
+  transition: color var(--transition-fast), border-color var(--transition-fast), background var(--transition-fast);
+  letter-spacing: 0.01em;
+}
+.ai-app .tab-btn:hover { color: var(--text-secondary); background: var(--surface); }
+.ai-app .tab-btn.active { color: var(--text); border-bottom-color: var(--text); }
+.ai-app .tab-btn .material-icons { font-size: 18px; }
+.ai-app .tab-panel { display: none; animation: panel-in 0.35s cubic-bezier(0.2,0.9,0.3,1) forwards; }
+.ai-app .tab-panel.active { display: block; }
+@keyframes panel-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+.ai-app .header { display: flex; align-items: center; gap: 12px; margin-bottom: 1.25rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border); }
+.ai-app .model-badge {
+  width: 44px; height: 44px; border-radius: var(--radius-sm); background: var(--surface);
+  display: flex; align-items: center; justify-content: center; color: var(--text);
+  border: 1px solid var(--border); transition: background var(--transition-fast), transform var(--transition-bounce);
+  flex-shrink: 0;
+}
+.ai-app .model-badge .material-icons { font-size: 26px; }
+.ai-app .header-info h1 { font-size: 1.25rem; font-weight: 600; letter-spacing: -0.02em; }
+.ai-app .header-info .status-row { display: flex; align-items: center; gap: 6px; margin-top: 4px; }
+.ai-app .status-dot { width: 7px; height: 7px; border-radius: 50%; background: #34c759; transition: background var(--transition-fast), box-shadow var(--transition-fast); }
+.ai-app .status-dot.processing { background: var(--color-info); animation: pulse-dot 1.2s infinite cubic-bezier(0.4,0,0.2,1); }
+.ai-app .status-dot.fallback { background: var(--color-warn); animation: pulse-dot 1.2s infinite cubic-bezier(0.4,0,0.2,1); }
+@keyframes pulse-dot { 0%,100% { box-shadow: 0 0 0 0 rgba(0,122,255,0.35); } 50% { box-shadow: 0 0 0 7px rgba(0,122,255,0); } }
+.ai-app .status-text { font-size: 0.75rem; font-weight: 400; color: var(--text-secondary); }
+.ai-app .messages { min-height: 240px; max-height: 400px; overflow-y: auto; display: flex; flex-direction: column; gap: 0.9rem; margin-bottom: 1rem; padding-right: 4px; scroll-behavior: smooth; }
+.ai-app .messages::-webkit-scrollbar { width: 4px; }
+.ai-app .messages::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 4px; }
+.ai-app .message { display: flex; align-items: flex-start; gap: 10px; opacity: 0; animation: message-in 0.35s cubic-bezier(0.2,0.9,0.3,1) forwards; position: relative; }
+.ai-app .message:hover .copy-btn { opacity: 1; }
+@keyframes message-in { from { opacity: 0; transform: translateY(8px) scale(0.97); } to { opacity: 1; transform: translateY(0) scale(1); } }
+.ai-app .message.user { flex-direction: row-reverse; }
+.ai-app .message-avatar { width: 32px; height: 32px; border-radius: 10px; background: var(--surface); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: var(--text-secondary); }
+.ai-app .message.user .message-avatar { background: #f0f0f0; }
+.ai-app .message-avatar .material-icons { font-size: 17px; }
+.ai-app .message-bubble {
+  padding: 0.8rem 1.1rem;
+  border-radius: var(--radius-md) var(--radius-md) var(--radius-md) 6px;
+  background: var(--surface);
+  font-size: 0.88rem;
+  line-height: 1.7;
+  max-width: 78%;
+  word-break: break-word;
+  border: 1px solid var(--border);
+  transition: background var(--transition-fast);
+  cursor: default;
+  overflow-wrap: break-word;
+  min-height: 1.5rem;
+}
+.ai-app .message.user .message-bubble { background: #f2f2f2; border-radius: var(--radius-md) var(--radius-md) 6px var(--radius-md); border-color: #e6e6e6; }
+.ai-app .message-bubble.fallback { border-color: #ffe0b2; background: #fff8e1; }
+.ai-app .message-bubble p { margin: 0 0 0.5rem 0; }
+.ai-app .message-bubble p:last-child { margin-bottom: 0; }
+.ai-app .message-bubble h1, .ai-app .message-bubble h2, .ai-app .message-bubble h3, .ai-app .message-bubble h4 { margin: 0.5rem 0 0.3rem; font-weight: 600; }
+.ai-app .message-bubble ul, .ai-app .message-bubble ol { margin: 0.3rem 0; padding-left: 1.5rem; }
+.ai-app .message-bubble li { margin: 0.15rem 0; }
+.ai-app .message-bubble code { background: #f0f0f0; padding: 0.15rem 0.35rem; border-radius: 4px; font-family: 'SF Mono', 'Menlo', monospace; font-size: 0.8rem; }
+.ai-app .message-bubble pre { background: #f5f5f5; padding: 0.8rem; border-radius: 8px; overflow-x: auto; margin: 0.5rem 0; }
+.ai-app .message-bubble pre code { background: none; padding: 0; }
+.ai-app .message-bubble blockquote { border-left: 3px solid var(--border-strong); padding-left: 0.8rem; margin: 0.5rem 0; color: var(--text-secondary); }
+.ai-app .message-bubble table { border-collapse: collapse; margin: 0.5rem 0; width: 100%; }
+.ai-app .message-bubble th, .ai-app .message-bubble td { border: 1px solid var(--border); padding: 0.4rem 0.6rem; text-align: left; }
+.ai-app .message-bubble th { background: var(--surface); font-weight: 600; }
+.ai-app .message-bubble img { max-width: 100%; border-radius: 8px; }
+.ai-app .message-bubble .math-display { overflow-x: auto; overflow-y: hidden; padding: 0.3rem 0; }
+.ai-app .message-bubble mjx-container { display: inline-block; margin: 0; }
+.ai-app .message-bubble .typing-cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  background: var(--color-info);
+  margin-left: 2px;
+  vertical-align: text-bottom;
+  animation: cursor-blink 0.8s infinite;
+}
+@keyframes cursor-blink { 0%,50% { opacity: 1; } 51%,100% { opacity: 0; } }
+.ai-app .copy-btn { position: absolute; top: 50%; transform: translateY(-50%); width: 26px; height: 26px; border-radius: 8px; border: 1px solid var(--border); background: var(--bg); color: var(--text-secondary); cursor: pointer; display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity var(--transition-fast); z-index: 5; }
+.ai-app .message.user .copy-btn { left: 40px; }
+.ai-app .message:not(.user) .copy-btn { right: 40px; }
+.ai-app .copy-btn:hover { background: var(--surface-hover); color: var(--text); }
+.ai-app .copy-btn .material-icons { font-size: 14px; }
+.ai-app .empty-hint { text-align: center; color: var(--text-tertiary); font-size: 0.8rem; padding: 1.2rem 0.5rem; }
+.ai-app .log-container { background: var(--surface); border-radius: var(--radius-md); border: 1px solid var(--border); padding: 1rem 1.2rem; min-height: 240px; max-height: 360px; overflow-y: auto; font-size: 0.75rem; line-height: 1.6; color: var(--text-secondary); font-family: 'SF Mono', 'Menlo', monospace; }
+.ai-app .log-container::-webkit-scrollbar { width: 4px; }
+.ai-app .log-container::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 4px; }
+.ai-app .log-entry { display: flex; gap: 8px; padding: 0.25rem 0; border-bottom: 1px solid var(--border); animation: log-in 0.2s ease forwards; }
+.ai-app .log-entry:last-child { border-bottom: none; }
+@keyframes log-in { from { opacity: 0; transform: translateX(-4px); } to { opacity: 1; transform: translateX(0); } }
+.ai-app .log-time { color: var(--text-tertiary); font-size: 0.7rem; flex-shrink: 0; min-width: 55px; }
+.ai-app .log-level { flex-shrink: 0; min-width: 45px; font-weight: 600; }
+.ai-app .log-level.info { color: var(--color-info); }
+.ai-app .log-level.warn { color: var(--color-warn); }
+.ai-app .log-level.error { color: var(--color-error); }
+.ai-app .log-message { flex: 1; word-break: break-word; }
+.ai-app .thinking-bar { display: flex; align-items: center; gap: 8px; padding: 0.2rem 0 0.5rem; opacity: 0; pointer-events: none; transition: opacity var(--transition-fast); }
+.ai-app .thinking-bar.active { opacity: 1; }
+.ai-app .thinking-dots { display: flex; gap: 4px; }
+.ai-app .thinking-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--text-tertiary); animation: dot-bounce 1.2s infinite; }
+.ai-app .thinking-dot:nth-child(2) { animation-delay: 0.15s; }
+.ai-app .thinking-dot:nth-child(3) { animation-delay: 0.3s; }
+@keyframes dot-bounce { 0%,80%,100% { transform: translateY(0); opacity: 0.5; } 40% { transform: translateY(-5px); opacity: 1; } }
+.ai-app .input-area { display: flex; align-items: center; gap: 10px; background: var(--bg); border: 1px solid var(--border); border-radius: 40px; padding: 6px 6px 6px 18px; transition: border-color var(--transition-fast), box-shadow var(--transition-fast); margin-top: 0.5rem; }
+.ai-app .input-area:focus-within { border-color: var(--border-strong); box-shadow: var(--shadow-sm); }
+.ai-app .input-area input { flex: 1; border: none; background: transparent; font-family: 'Inter', sans-serif; font-size: 0.88rem; padding: 8px 0; outline: none; color: var(--text); }
+.ai-app .input-area input::placeholder { color: var(--text-tertiary); font-weight: 300; }
+.ai-app .send-btn { width: 40px; height: 40px; border-radius: 50%; border: none; background: var(--send-bg); color: var(--send-text); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background var(--transition-fast), transform 0.2s; flex-shrink: 0; }
+.ai-app .send-btn:hover { background: #2a2a2a; }
+.ai-app .send-btn:active { transform: scale(0.93); }
+.ai-app .send-btn .material-icons { font-size: 19px; }
+.dark .ai-app .send-btn:hover { background: #cfd0d3; }
+.dark .ai-app .message.user .message-bubble { background: #262626; border-color: #303030; }
+.dark .ai-app .message.user .message-avatar { background: #262626; }
+.dark .ai-app .message-bubble.fallback { border-color: #5c4a24; background: #2b2313; }
+.dark .ai-app .message-bubble code { background: #2c2c2c; }
+.dark .ai-app .message-bubble pre { background: #232323; }
+
+footer {
+  border-top: 1px solid var(--border-light);
+  padding: 32px 64px;
+  display: flex; justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  transition: border-color .5s ease;
+  animation: fadeSlideIn .6s .5s ease both;
+}
+footer .copy {
+  font-family: var(--font-body);
+  font-size: 12px; font-weight: 300;
+  color: var(--text-tertiary); letter-spacing: 1px;
+  transition: color .5s ease;
+}
+footer .links a {
+  font-family: var(--font-body);
+  font-size: 12px; font-weight: 400; color: var(--text-secondary);
+  text-decoration: none; margin-left: 24px; letter-spacing: 1px;
+  cursor: pointer;
+  transition: color .3s;
+}
+footer .links a:hover { color: var(--hover-text); }
+footer .disclaimer {
+  flex-basis: 100%;
+  text-align: center;
+  font-family: var(--font-body);
+  font-size: 11px; font-weight: 300;
+  color: var(--text-tertiary); letter-spacing: 1px;
+  transition: color .5s ease;
+}
+
+@keyframes fadeSlideIn {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.toast {
+  position: fixed;
+  bottom: 40px; left: 50%;
+  transform: translateX(-50%);
+  background: var(--toast-bg); color: var(--toast-text);
+  padding: 12px 28px;
+  border-radius: 8px;
+  font-family: var(--font-pixel);
+  font-size: 10px; font-weight: 400;
+  opacity: 0;
+  transition: opacity .3s, background .5s ease, color .5s ease;
+  pointer-events: none;
+  z-index: 999;
+}
+.toast.show { opacity: 1; }
+
+@media (max-width: 768px) {
+  body { flex-direction: column; }
+  .sidebar {
+    width: 100%; height: auto; position: relative;
+    border-right: none; border-bottom: 1px solid var(--border);
+    flex-direction: row; align-items: center; justify-content: space-between;
+    padding: 20px 24px; flex-wrap: wrap; gap: 12px;
+    transition: border-color .5s ease;
+  }
+  .sidebar nav { display: flex; gap: 16px; flex: 1; justify-content: flex-end; flex-wrap: wrap; }
+  .sidebar .divider, .sidebar-bottom { display: none; }
+  .sidebar .logo h1 { font-size: 18px; }
+  .sidebar nav a { padding: 6px 0; font-size: 12px; }
+  .hero-strip { padding: 40px 24px 32px; }
+  .hero-strip h2 { font-size: 20px; }
+  .features { padding: 0 24px 32px; grid-template-columns: 1fr; }
+  .feature-item .label { font-size: 22px; }
+  .cards-row, .info-page .info-grid { padding: 32px 24px; }
+  .dl-section { padding: 32px 24px; }
+  .dl-card { flex-direction: column; text-align: center; padding: 40px 28px; }
+  .ai-frame-wrap { padding: 32px 24px 32px; }
+  .ai-app .container { padding: 1.4rem 1.1rem 1.2rem; border-radius: 20px; }
+  .ai-app .tab-btn { padding: 0.6rem 0.9rem; font-size: 0.8rem; }
+  .ai-app .messages { max-height: 50vh; }
+  .ai-app .message-bubble { max-width: 88%; }
+  footer { flex-direction: column; gap: 12px; text-align: center; padding: 24px; }
+}
+</style>
+</head>
+<body>
+
+<aside class="sidebar">
+  <div class="logo">
+    <h1 data-i18n="logo">澜云阁</h1>
+    <p>LANYUNGE</p>
+  </div>
+  <div class="divider"></div>
+  <nav>
+    <a data-page="home" class="active" onclick="navigateTo('home')" data-i18n="nav.home">首页</a>
+    <a data-page="info" onclick="navigateTo('info')" data-i18n="nav.info">服务器信息</a>
+    <a data-page="download" onclick="navigateTo('download')" data-i18n="nav.dl">客户端下载</a>
+    <a data-page="ai" onclick="navigateTo('ai')" data-i18n="nav.ai">AI</a>
+  </nav>
+  <div class="sidebar-bottom">
+    <div class="sidebar-row">
+      <div class="lang-toggle">
+        <span class="active" data-lang="zh" onclick="setLang('zh')">中文</span>
+        <span data-lang="en" onclick="setLang('en')">EN</span>
+      </div>
+    </div>
+    <div class="status">
+      <span class="dot"></span><span>Paper</span>
+    </div>
+    <div class="theme-toggle" onclick="toggleTheme()">
+      <div class="track"><div class="thumb"></div></div>
+      <span data-i18n="theme">深色模式</span>
+    </div>
+  </div>
+</aside>
+
+<main class="main">
+
+  <div class="page active" id="page-home">
+    <section class="hero-strip">
+      <h2 data-i18n="home.title">澜云阁 Minecraft</h2>
+      <p class="sub" data-i18n="home.sub">高性能 Paper 模组服务器 · 纯净体验</p>
+    </section>
+    <div class="features">
+      <div class="feature-item">
+        <div class="label">Paper</div>
+        <div class="desc" data-i18n="home.f1">高性能内核</div>
+      </div>
+      <div class="feature-item">
+        <div class="label">1.20.1</div>
+        <div class="desc" data-i18n="home.f2">游戏版本</div>
+      </div>
+      <div class="feature-item">
+        <div class="label">24/7</div>
+        <div class="desc" data-i18n="home.f3">持续运行</div>
+      </div>
+    </div>
+    <footer>
+      <div class="copy" data-i18n="footer.copy">&copy; 2026 澜云阁</div>
+      <div class="disclaimer" data-i18n="footer.disclaimer">本网站不属于Mojang与Microsoft及相关网页</div>
+      <div class="links">
+        <a onclick="navigateTo('download')" data-i18n="footer.dl">客户端下载</a>
+        <a onclick="navigateTo('info')" data-i18n="footer.info">服务器信息</a>
+      </div>
+    </footer>
+  </div>
+
+  <div class="page info-page" id="page-info">
+    <section class="hero-strip">
+      <h2 data-i18n="info.title">服务器信息</h2>
+      <p class="sub">mc.georainl.cc.cd</p>
+    </section>
+    <div class="info-grid">
+      <div class="card">
+        <div class="icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--icon-stroke)" stroke-width="1.5">
+            <rect x="3" y="11" width="18" height="11" rx="2"/>
+            <path d="M7 11V7a5 5 0 0110 0v4"/>
+          </svg>
+        </div>
+        <h3 data-i18n="info.card1">服务器地址</h3>
+        <div class="value copy" data-tip-zh="点击复制" data-tip-en="Click to Copy" onclick="copyText('mc.georainl.cc.cd')">mc.georainl.cc.cd</div>
+      </div>
+      <div class="card">
+        <div class="icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--icon-stroke)" stroke-width="1.5">
+            <path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/>
+            <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+            <line x1="12" y1="22.08" x2="12" y2="12"/>
+          </svg>
+        </div>
+        <h3 data-i18n="info.card2">核心类型</h3>
+        <div class="value">Paper</div>
+      </div>
+      <div class="card">
+        <div class="icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--icon-stroke)" stroke-width="1.5">
+            <circle cx="12" cy="12" r="10"/>
+            <polyline points="12 6 12 12 16 14"/>
+          </svg>
+        </div>
+        <h3 data-i18n="info.card3">游戏版本</h3>
+        <div class="value">1.20.1</div>
+      </div>
+    </div>
+    <footer>
+      <div class="copy" data-i18n="footer.copy">&copy; 2026 澜云阁</div>
+      <div class="disclaimer" data-i18n="footer.disclaimer">本网站不属于Mojang与Microsoft及相关网页</div>
+      <div class="links">
+        <a onclick="navigateTo('download')" data-i18n="footer.dl">客户端下载</a>
+        <a onclick="navigateTo('home')" data-i18n="footer.home">返回首页</a>
+      </div>
+    </footer>
+  </div>
+
+  <div class="page" id="page-ai">
+    <section class="hero-strip">
+      <h2 data-i18n="ai.title">AI</h2>
+      <p class="sub" data-i18n="ai.sub">AI 问答助手</p>
+    </section>
+    <div class="ai-frame-wrap">
+      <div class="ai-app">
+        <div class="container">
+          <div class="tabs">
+            <button class="tab-btn active" data-tab="chat"><span class="material-icons">chat</span>对话</button>
+            <button class="tab-btn" data-tab="logs"><span class="material-icons">description</span>日志</button>
+          </div>
+
+          <div class="tab-panel active" id="panel-chat">
+            <div class="header">
+              <div class="model-badge"><span class="material-icons">psychology</span></div>
+              <div class="header-info">
+                <h1>PaintData</h1>
+                <div class="status-row">
+                  <span class="status-dot" id="statusDot"></span>
+                  <span class="status-text" id="statusLabel">就绪</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="messages" id="messageList">
+              <div class="empty-hint" id="emptyHint">输入内容开始对话</div>
+            </div>
+
+            <div class="thinking-bar" id="thinkingBar">
+              <span class="material-icons">psychology</span>
+              <div class="thinking-dots"><span class="thinking-dot"></span><span class="thinking-dot"></span><span class="thinking-dot"></span></div>
+              <span class="status-text">思考中</span>
+            </div>
+
+            <div class="input-area">
+              <input type="text" id="userInput" placeholder="输入内容，支持Markdown和数学公式" autocomplete="off">
+              <button class="send-btn" id="sendBtn" aria-label="发送"><span class="material-icons">arrow_upward</span></button>
+            </div>
+          </div>
+
+          <div class="tab-panel" id="panel-logs">
+            <div class="header" style="margin-bottom:0.8rem;padding-bottom:0.8rem;">
+              <div class="model-badge"><span class="material-icons">monitoring</span></div>
+              <div class="header-info"><h1 style="font-size:1.1rem;">运行日志</h1></div>
+            </div>
+            <div class="log-container" id="logContainer"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer>
+      <div class="copy" data-i18n="footer.copy">&copy; 2026 澜云阁</div>
+      <div class="disclaimer" data-i18n="footer.disclaimer">本网站不属于Mojang与Microsoft及相关网页</div>
+      <div class="links">
+        <a onclick="navigateTo('home')" data-i18n="footer.home">返回首页</a>
+      </div>
+    </footer>
+  </div>
+
+  <div class="page" id="page-download">
+    <section class="hero-strip">
+      <h2 data-i18n="dl.title">客户端下载</h2>
+      <p class="sub" data-i18n="dl.sub">集成 Forge 模组 · 开箱即玩</p>
+    </section>
+    <div class="dl-section">
+      <div class="dl-card">
+        <div class="text">
+          <h2 data-i18n="dl.client">澜云阁客户端</h2>
+          <p data-i18n="dl.clientSub">适配 1.20.1 · 包含必需模组</p>
+        </div>
+        <a class="dl-btn" href="https://wwbra.lanzoue.com/iUbXJ41s02ne" target="_blank">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
+            <polyline points="7 10 12 15 17 10"/>
+            <line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+          <span data-i18n="dl.btn">下载客户端</span>
+        </a>
+      </div>
+    </div>
+    <footer>
+      <div class="copy" data-i18n="footer.copy">&copy; 2026 澜云阁</div>
+      <div class="disclaimer" data-i18n="footer.disclaimer">本网站不属于Mojang与Microsoft及相关网页</div>
+      <div class="links">
+        <a onclick="navigateTo('info')" data-i18n="footer.info">服务器信息</a>
+        <a onclick="navigateTo('home')" data-i18n="footer.home">返回首页</a>
+      </div>
+    </footer>
+  </div>
+
+</main>
+
+<div class="toast" id="toast" data-i18n="toast">已复制到剪贴板</div>
+
+<script>
+var currentPage = 'home';
+var currentLang = 'zh';
+
+var i18n = {
+  zh: {
+    logo: '澜云阁',
+    nav: { home: '首页', info: '服务器信息', dl: '客户端下载', ai: 'AI' },
+    theme: '深色模式',
+    home: { title: '澜云阁 Minecraft', sub: '高性能 Paper 模组服务器 · 纯净体验', f1: '高性能内核', f2: '游戏版本', f3: '持续运行' },
+    info: { title: '服务器信息', card1: '服务器地址', card2: '核心类型', card3: '游戏版本' },
+    dl: { title: '客户端下载', sub: '集成 Paper 模组 · 开箱即玩', client: '澜云阁客户端', clientSub: '适配 1.20.1 · 包含必需模组', btn: '下载客户端' },
+    ai: { title: 'AI', sub: 'AI 问答助手' },
+    footer: { copy: '© 2026 澜云阁', dl: '客户端下载', info: '服务器信息', home: '返回首页', disclaimer: '本网站不属于Mojang与Microsoft及相关网页' },
+    toast: '已复制到剪贴板',
+    tip: '点击复制'
+  },
+  en: {
+    logo: 'LanYunGe',
+    nav: { home: 'Home', info: 'Server Info', dl: 'Download', ai: 'AI' },
+    theme: 'Dark Mode',
+    home: { title: 'LanYunGe Minecraft', sub: 'High-performance Paper Server · Pure Experience', f1: 'High Performance', f2: 'Game Version', f3: 'Always Online' },
+    info: { title: 'Server Info', card1: 'Server Address', card2: 'Core Type', card3: 'Game Version' },
+    dl: { title: 'Download Client', sub: 'Integrated Mods · Ready to Play', client: 'LanYunGe Client', clientSub: 'For 1.20.1 · Essential Mods', btn: 'Download' },
+    ai: { title: 'AI', sub: 'AI Q&A Assistant' },
+    footer: { copy: '© 2026 LanYunGe', dl: 'Download', info: 'Server Info', home: 'Home', disclaimer: 'This website is not affiliated with Mojang or Microsoft, nor any related websites.' },
+    toast: 'Copied to clipboard',
+    tip: 'Click to Copy'
+  }
+};
+
+function applyLang(lang) {
+  currentLang = lang;
+  document.querySelectorAll('[data-i18n]').forEach(function(el){
+    var key = el.dataset.i18n;
+    var keys = key.split('.');
+    var val = i18n[lang];
+    keys.forEach(function(k){ val = val[k]; });
+    if (val !== undefined) el.textContent = val;
+  });
+  document.querySelectorAll('.value.copy').forEach(function(el){
+    el.dataset.tip = i18n[lang].tip;
+  });
+  document.querySelectorAll('.lang-toggle span').forEach(function(s){
+    s.classList.toggle('active', s.dataset.lang === lang);
+  });
+  document.querySelector('html').setAttribute('lang', lang === 'zh' ? 'zh-CN' : 'en');
+  document.title = lang === 'zh' ? '澜云阁 | Minecraft公益服' : 'LanYunGe | Minecraft Server';
+  localStorage.setItem('lang', lang);
+}
+
+function setLang(lang) {
+  if (lang === currentLang) return;
+  applyLang(lang);
+}
+
+function navigateTo(pageName) {
+  if (pageName === currentPage) return;
+  var oldPage = document.getElementById('page-' + currentPage);
+  var newPage = document.getElementById('page-' + pageName);
+  if (!oldPage || !newPage) return;
+
+  oldPage.classList.remove('active');
+  newPage.classList.add('active');
+
+  document.querySelectorAll('.sidebar nav a').forEach(function(a){
+    a.classList.toggle('active', a.dataset.page === pageName);
+  });
+
+  currentPage = pageName;
+
+  newPage.querySelectorAll('.card, .feature-item, .hero-strip, footer').forEach(function(el){
+    el.style.animation = 'none';
+    el.offsetHeight;
+    el.style.animation = '';
+  });
+}
+
+function copyText(text) {
+  navigator.clipboard.writeText(text).then(function(){
+    var t = document.getElementById('toast');
+    t.classList.add('show');
+    setTimeout(function(){ t.classList.remove('show'); }, 1800);
+  });
+}
+
+(function(){
+  var el = document.documentElement;
+  if (localStorage.getItem('theme') === 'dark') el.classList.add('dark');
+  var savedLang = localStorage.getItem('lang') || 'zh';
+  applyLang(savedLang);
+})();
+
+function toggleTheme() {
+  var el = document.documentElement;
+  el.classList.toggle('dark');
+  localStorage.setItem('theme', el.classList.contains('dark') ? 'dark' : 'light');
+}
+
+/* ===== PaintData AI App ===== */
+(function() {
+  var API_URL = 'https://open.bigmodel.cn/api/paas/v4/chat/completions';
+  var ENC_API_KEY = 'ODQyYjY5ODdlYWM4NGNjYWI1NmViOTUyYTljYjZiM2MuR01Gem5IRzZaOE5RZHN0SQ==';
+  var MODEL_NAME = 'glm-4-flash';
+
+  function getApiKey() { return atob(ENC_API_KEY); }
+
+  var messageList = document.getElementById('messageList');
+  var userInput = document.getElementById('userInput');
+  var sendBtn = document.getElementById('sendBtn');
+  var thinkingBar = document.getElementById('thinkingBar');
+  var statusDot = document.getElementById('statusDot');
+  var statusLabel = document.getElementById('statusLabel');
+  var emptyHint = document.getElementById('emptyHint');
+  var logContainer = document.getElementById('logContainer');
+
+  var isProcessing = false;
+  var messageCount = 0;
+  var conversationHistory = [];
+
+  function log(level, message) {
+    var entry = document.createElement('div');
+    entry.className = 'log-entry';
+    var now = new Date();
+    var timeStr = now.toTimeString().slice(0, 8);
+    var levelSpan = document.createElement('span');
+    levelSpan.className = 'log-level ' + level;
+    levelSpan.textContent = level.toUpperCase();
+    var timeSpan = document.createElement('span');
+    timeSpan.className = 'log-time';
+    timeSpan.textContent = timeStr;
+    var msgSpan = document.createElement('span');
+    msgSpan.className = 'log-message';
+    msgSpan.textContent = message;
+    entry.appendChild(timeSpan);
+    entry.appendChild(levelSpan);
+    entry.appendChild(msgSpan);
+    logContainer.appendChild(entry);
+    logContainer.scrollTop = logContainer.scrollHeight;
+  }
+
+  function renderMarkdown(text) {
+    var processed = text;
+    var mathBlocks = [];
+    processed = processed.replace(/\$\$([\s\S]+?)\$\$/g, function(match, content) {
+      var id = 'MATHBLOCK' + mathBlocks.length;
+      mathBlocks.push({ type: 'display', content: content });
+      return '\n' + id + '\n';
+    });
+    processed = processed.replace(/\$([^\$\n]+?)\$/g, function(match, content) {
+      var id = 'MATHINLINE' + mathBlocks.length;
+      mathBlocks.push({ type: 'inline', content: content });
+      return id;
+    });
+    var html = marked.parse(processed);
+    mathBlocks.forEach(function(block, i) {
+      var id = (block.type === 'display' ? 'MATHBLOCK' : 'MATHINLINE') + i;
+      var mathHtml = block.type === 'display'
+        ? '\\[' + block.content + '\\]'
+        : '\\(' + block.content + '\\)';
+      html = html.replace(id, mathHtml);
+    });
+    return html;
+  }
+
+  function createMessageElement(sender, isFallback) {
+    if (emptyHint && messageList.contains(emptyHint)) emptyHint.style.display = 'none';
+    messageCount++;
+    var msgDiv = document.createElement('div');
+    msgDiv.className = 'message ' + sender;
+    var avatar = document.createElement('div');
+    avatar.className = 'message-avatar';
+    var icon = document.createElement('span');
+    icon.className = 'material-icons';
+    icon.textContent = sender === 'user' ? 'person' : 'psychology';
+    avatar.appendChild(icon);
+    var bubble = document.createElement('div');
+    bubble.className = 'message-bubble';
+    if (isFallback) bubble.classList.add('fallback');
+    var copyBtn = document.createElement('button');
+    copyBtn.className = 'copy-btn';
+    copyBtn.innerHTML = '<span class="material-icons">content_copy</span>';
+    copyBtn.title = '复制内容';
+    msgDiv.appendChild(avatar);
+    msgDiv.appendChild(bubble);
+    msgDiv.appendChild(copyBtn);
+    messageList.appendChild(msgDiv);
+    messageList.scrollTo({ top: messageList.scrollHeight, behavior: 'smooth' });
+    return { msgDiv: msgDiv, bubble: bubble, copyBtn: copyBtn };
+  }
+
+  function typeText(bubble, content, isMarkdown, onComplete) {
+    var plainText = content;
+    var displayText = isMarkdown ? renderMarkdown(content) : content;
+    var cursor = document.createElement('span');
+    cursor.className = 'typing-cursor';
+    bubble.appendChild(cursor);
+
+    var charIndex = 0;
+    var totalChars = plainText.length;
+    var speed = totalChars > 100 ? 6 : 12;
+
+    function typeNextChar() {
+      if (charIndex < totalChars) {
+        var partialText = plainText.slice(0, charIndex + 1);
+        var partialHtml = isMarkdown ? renderMarkdown(partialText) : partialText;
+        bubble.innerHTML = partialHtml;
+        bubble.appendChild(cursor);
+        if (isMarkdown && window.MathJax && window.MathJax.typesetPromise) {
+          MathJax.typesetPromise([bubble]).catch(function() {});
+        }
+        charIndex++;
+        messageList.scrollTo({ top: messageList.scrollHeight, behavior: 'smooth' });
+        setTimeout(typeNextChar, speed);
+      } else {
+        cursor.remove();
+        bubble.innerHTML = displayText;
+        if (isMarkdown && window.MathJax && window.MathJax.typesetPromise) {
+          MathJax.typesetPromise([bubble]).catch(function() {});
+        }
+        if (onComplete) onComplete();
+      }
+    }
+
+    typeNextChar();
+  }
+
+  function addMessage(content, sender, isFallback, useTyping) {
+    var result = createMessageElement(sender, isFallback);
+    var bubble = result.bubble;
+    var copyBtn = result.copyBtn;
+    var isMarkdown = sender === 'assistant';
+
+    copyBtn.addEventListener('click', function() {
+      navigator.clipboard.writeText(content).then(function() {
+        copyBtn.innerHTML = '<span class="material-icons">check</span>';
+        setTimeout(function() { copyBtn.innerHTML = '<span class="material-icons">content_copy</span>'; }, 800);
+      });
+    });
+
+    if (useTyping && sender === 'assistant') {
+      typeText(bubble, content, isMarkdown);
+    } else {
+      bubble.innerHTML = isMarkdown ? renderMarkdown(content) : content;
+      if (isMarkdown && window.MathJax && window.MathJax.typesetPromise) {
+        MathJax.typesetPromise([bubble]).catch(function() {});
+      }
+    }
+
+    messageList.scrollTo({ top: messageList.scrollHeight, behavior: 'smooth' });
+    log('info', (sender === 'user' ? '用户输入' : '模型输出') + ' #' + messageCount + ': ' + content.slice(0, 60));
+  }
+
+  function setProcessing(active, isFallback) {
+    isProcessing = active;
+    if (active) {
+      thinkingBar.classList.add('active');
+      statusDot.classList.add(isFallback ? 'fallback' : 'processing');
+      statusDot.classList.remove(isFallback ? 'processing' : 'fallback');
+      statusLabel.textContent = isFallback ? '本地推理中' : '深度推理中';
+    } else {
+      thinkingBar.classList.remove('active');
+      statusDot.classList.remove('processing', 'fallback');
+      statusLabel.textContent = '就绪';
+    }
+  }
+
+  function callCloudAPI(userMessage) {
+    var systemPrompt = '你是PaintData，一个解决日常问题的AI。你必须独立思考，展示你如何解构问题的内在矛盾，而不是匹配现成答案。绝对禁止使用"作为AI，我无法"这类表述。禁止将问题降解为分类任务或回归任务。请用中文回答，支持Markdown和LaTeX数学公式（行内$...$，独立$$...$$，分数用\\frac）。';
+    var messages = [
+      { role: 'system', content: systemPrompt },
+    ].concat(conversationHistory.slice(-10))
+     .concat({ role: 'user', content: userMessage });
+
+    return fetch(API_URL, {
+      method: 'POST',
+      headers: {
+        'Authorization': 'Bearer ' + getApiKey(),
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        model: MODEL_NAME,
+        messages: messages,
+        temperature: 0.8,
+        max_tokens: 2048
+      })
+    }).then(function(response) {
+      if (!response.ok) throw new Error('服务器繁忙');
+      return response.json();
+    }).then(function(data) {
+      var reply = data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content;
+      if (!reply) throw new Error('服务器繁忙');
+      return reply;
+    });
+  }
+
+  var fallbackResponses = [
+    '先说我的思考路径：这个问题表面问的是工具，实质是**效率与控制的矛盾**。\n\n直接给结论：\n\n$$\n\\text{效率} = \\frac{\\text{产出}}{\\text{时间}} \\quad \\text{控制} = \\frac{\\text{可调参数}}{\\text{总参数}}\n$$\n\n两者不可兼得时，优先保住效率。',
+    '拆解一下：日常问题的本质是**约束条件下的优化**。\n\n比如：\n\n| 约束 | 目标 |\n|------|------|\n| 时间有限 | 完成度最高 |\n| 信息不全 | 风险最小 |\n\n公式：\n\n$$\n\\min_{x} \\, f(x) \\quad \\text{s.t.} \\quad g(x) \\leq 0\n$$\n\n但真实生活不需要最优解，**可行解就够了**。',
+    '我注意到一个矛盾：**你问的是"怎么解决"，但问题本身可能不需要被"解决"**。\n\n有时候：\n\n$$\n\\text{问题} \\neq \\text{障碍} \\quad \\text{而是} \\quad \\text{信号}\n$$\n\n它告诉你某个环节需要重新审视。'
+  ];
+
+  function getFallbackResponse(text) {
+    return fallbackResponses[messageCount % fallbackResponses.length];
+  }
+
+  function handleSend() {
+    if (isProcessing) return;
+    var text = userInput.value.trim();
+    if (!text) return;
+    addMessage(text, 'user');
+    conversationHistory.push({ role: 'user', content: text });
+    userInput.value = '';
+    setProcessing(true, false);
+    setTimeout(function() {
+      callCloudAPI(text).then(function(response) {
+        addMessage(response, 'assistant', false, true);
+        conversationHistory.push({ role: 'assistant', content: response });
+        setProcessing(false);
+      }).catch(function(e) {
+        log('warn', '服务器繁忙，切换本地推理');
+        setProcessing(true, true);
+        setTimeout(function() {
+          var fallbackResponse = getFallbackResponse(text);
+          addMessage(fallbackResponse, 'assistant', true, true);
+          conversationHistory.push({ role: 'assistant', content: fallbackResponse });
+          setProcessing(false);
+        }, 400);
+      });
+    }, 100);
+  }
+
+  document.querySelectorAll('.tab-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var target = btn.dataset.tab;
+      document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
+      document.querySelectorAll('.tab-panel').forEach(function(p) { p.classList.remove('active'); });
+      btn.classList.add('active');
+      document.getElementById('panel-' + target).classList.add('active');
+    });
+  });
+
+  sendBtn.addEventListener('click', handleSend);
+  userInput.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      handleSend();
+    }
+  });
+
+  log('info', 'PaintData 思维引擎已启动');
+})();
+/* ===== End PaintData AI App ===== */
+</script>
+
+</body>
+</html>
