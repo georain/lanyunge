@@ -7,22 +7,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-<script>
-window.MathJax = {
-  tex: {
-    inlineMath: [['$', '$'], ['\\(', '\\)']],
-    displayMath: [['$$', '$$'], ['\\[', '\\]']],
-    processEscapes: true
-  },
-  svg: { fontCache: 'global' },
-  options: {
-    ignoreHtmlClass: 'no-mathjax',
-    processHtmlClass: 'mathjax-process'
-  }
-};
-</script>
-<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" id="MathJax-script" async></script>
 <style>
 @font-face {
   font-family: 'Zpix';
@@ -374,178 +358,6 @@ body {
 .info-page .info-grid .card:nth-child(2) { animation-delay: .2s; }
 .info-page .info-grid .card:nth-child(3) { animation-delay: .3s; }
 
-.ai-frame-wrap {
-  padding: 48px 64px 64px;
-  animation: fadeSlideIn .6s .1s ease both;
-}
-.ai-app .material-icons {
-  font-size: 24px;
-  vertical-align: middle;
-  line-height: 1;
-}
-.ai-app {
-  --bg: #ffffff;
-  --surface: #fafafa;
-  --surface-hover: #f4f4f4;
-  --border: #eaeaea;
-  --border-strong: #d9d9d9;
-  --text: #111111;
-  --text-secondary: #5a5a5a;
-  --text-tertiary: #9a9a9a;
-  --send-bg: #111111;
-  --send-text: #ffffff;
-  --radius-lg: 28px;
-  --radius-md: 18px;
-  --radius-sm: 12px;
-  --shadow-sm: 0 2px 8px rgba(0,0,0,0.03);
-  --shadow-md: 0 8px 24px rgba(0,0,0,0.05);
-  --shadow-lg: 0 16px 40px rgba(0,0,0,0.08);
-  --transition-fast: 0.2s cubic-bezier(0.2,0,0,1);
-  --transition-smooth: 0.35s cubic-bezier(0.2,0,0,1);
-  --transition-bounce: 0.45s cubic-bezier(0.34,1.56,0.64,1);
-  --color-info: #007aff;
-  --color-warn: #ff9500;
-  --color-error: #ff3b30;
-  color: var(--text);
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  transition: background .5s ease, color .5s ease;
-}
-.dark .ai-app {
-  --bg: #161616;
-  --surface: #1f1f1f;
-  --surface-hover: #262626;
-  --border: #2c2c2c;
-  --border-strong: #3a3a3a;
-  --text: #e8eaed;
-  --text-secondary: #9aa0a6;
-  --text-tertiary: #6b7075;
-  --send-bg: #e8eaed;
-  --send-text: #161616;
-  --shadow-sm: 0 2px 8px rgba(0,0,0,0.25);
-  --shadow-md: 0 8px 24px rgba(0,0,0,0.4);
-  --shadow-lg: 0 16px 40px rgba(0,0,0,0.55);
-  --color-info: #64b5f6;
-  --color-warn: #ffb74d;
-  --color-error: #ff6b60;
-}
-.ai-app .container {
-  width: 100%;
-  max-width: 900px;
-  margin: 0 auto;
-  background: var(--bg);
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--border);
-  box-shadow: var(--shadow-md);
-  padding: 1.5rem;
-  transition: box-shadow var(--transition-smooth), border-color var(--transition-fast), background .5s ease;
-}
-.ai-app .container:focus-within { box-shadow: var(--shadow-lg); border-color: var(--border-strong); }
-.ai-app .ai-layout { display: flex; gap: 12px; min-height: 480px; }
-.ai-app .ai-side {
-  width: 0; overflow: hidden; flex-shrink: 0; background: var(--surface);
-  border-radius: var(--radius-md); border: 1px solid var(--border);
-  transition: width 0.35s ease; display: flex; flex-direction: column;
-}
-.ai-app .ai-side.open { width: 220px; padding: 12px; }
-.ai-app .ai-side-content { display: flex; flex-direction: column; gap: 10px; opacity: 0; min-width: 196px; flex: 1; overflow-y: auto; }
-.ai-app .ai-side.open .ai-side-content { opacity: 1; }
-.ai-app .ai-side-header { display: flex; align-items: center; justify-content: space-between; padding: 2px; }
-.ai-app .ai-side-title { font-size: 0.95rem; font-weight: 600; color: var(--text); }
-.ai-app .ai-icon-btn {
-  width: 28px; height: 28px; border-radius: 8px; border: 1px solid var(--border);
-  background: none; cursor: pointer; display: flex; align-items: center; justify-content: center;
-  color: var(--text-secondary); transition: background var(--transition-fast), color var(--transition-fast);
-}
-.ai-app .ai-icon-btn:hover { background: var(--surface-hover); color: var(--text); }
-.ai-app .ai-icon-btn .material-icons { font-size: 16px; }
-.ai-app .ai-new-chat {
-  padding: 10px 12px; border-radius: 10px; border: 1px solid var(--border);
-  background: var(--surface-hover); color: var(--text); cursor: pointer;
-  font-size: 0.82rem; font-weight: 500; font-family: inherit; transition: background var(--transition-fast);
-}
-.ai-app .ai-new-chat:hover { background: var(--border); }
-.ai-app .ai-chat-list { display: flex; flex-direction: column; gap: 2px; flex: 1; overflow-y: auto; }
-.ai-app .ai-chat-list::-webkit-scrollbar { width: 4px; }
-.ai-app .ai-chat-list::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 4px; }
-.ai-app .ai-chat-item {
-  padding: 9px 10px; border-radius: 10px; cursor: pointer; font-size: 0.78rem;
-  color: var(--text-secondary); display: flex; align-items: center; justify-content: space-between;
-  transition: background var(--transition-fast), color var(--transition-fast);
-}
-.ai-app .ai-chat-item:hover { background: var(--surface-hover); }
-.ai-app .ai-chat-item.active { background: var(--text); color: var(--bg); }
-.ai-app .ai-chat-item .del-btn { opacity: 0; background: none; border: none; color: inherit; cursor: pointer; font-size: 0.7rem; }
-.ai-app .ai-chat-item:hover .del-btn { opacity: 0.6; }
-.ai-app .ai-main { flex: 1; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
-.ai-app .ai-topbar {
-  padding: 10px 14px; background: var(--surface); border-radius: var(--radius-md);
-  border: 1px solid var(--border); display: flex; align-items: center; gap: 10px;
-}
-.ai-app .ai-topbar-title { font-size: 0.95rem; font-weight: 600; color: var(--text); }
-.ai-app .ai-topbar-right { margin-left: auto; display: flex; align-items: center; gap: 6px; }
-.ai-app .ai-model-btn {
-  padding: 6px 12px; border-radius: 8px; border: 1px solid var(--border);
-  background: none; cursor: pointer; color: var(--text-secondary); font-size: 0.75rem;
-  font-family: inherit; transition: background var(--transition-fast), color var(--transition-fast);
-}
-.ai-app .ai-model-btn:hover { background: var(--surface-hover); }
-.ai-app .ai-model-btn.active { background: var(--text); color: var(--bg); border-color: transparent; }
-.ai-app .messages { flex: 1; min-height: 280px; max-height: 50vh; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; padding: 14px; scroll-behavior: smooth; background: var(--surface); border-radius: var(--radius-md); border: 1px solid var(--border); }
-.ai-app .messages::-webkit-scrollbar { width: 4px; }
-.ai-app .messages::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 4px; }
-.ai-app .message { display: flex; align-items: flex-start; gap: 8px; opacity: 0; animation: message-in 0.35s cubic-bezier(0.2,0.9,0.3,1) forwards; }
-@keyframes message-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
-.ai-app .message.user { flex-direction: row-reverse; }
-.ai-app .message-bubble {
-  padding: 9px 13px; border-radius: 12px 12px 12px 4px; background: var(--bg);
-  font-size: 0.85rem; line-height: 1.6; max-width: 85%; color: var(--text); word-break: break-word;
-  border: 1px solid var(--border);
-}
-.ai-app .message.user .message-bubble { border-radius: 12px 12px 4px 12px; background: var(--surface-hover); }
-.ai-app .message-bubble p { margin: 0 0 0.5rem 0; }
-.ai-app .message-bubble p:last-child { margin-bottom: 0; }
-.ai-app .message-bubble h1, .ai-app .message-bubble h2, .ai-app .message-bubble h3, .ai-app .message-bubble h4 { margin: 0.5rem 0 0.3rem; font-weight: 600; }
-.ai-app .message-bubble ul, .ai-app .message-bubble ol { margin: 0.3rem 0; padding-left: 1.5rem; }
-.ai-app .message-bubble li { margin: 0.15rem 0; }
-.ai-app .message-bubble code { background: var(--surface-hover); padding: 0.15rem 0.35rem; border-radius: 4px; font-family: 'SF Mono', 'Menlo', monospace; font-size: 0.8rem; }
-.ai-app .message-bubble pre { background: var(--surface-hover); padding: 0.8rem; border-radius: 8px; overflow-x: auto; margin: 0.5rem 0; }
-.ai-app .message-bubble pre code { background: none; padding: 0; }
-.ai-app .message-bubble blockquote { border-left: 3px solid var(--border-strong); padding-left: 0.8rem; margin: 0.5rem 0; color: var(--text-secondary); }
-.ai-app .message-bubble table { border-collapse: collapse; margin: 0.5rem 0; width: 100%; }
-.ai-app .message-bubble th, .ai-app .message-bubble td { border: 1px solid var(--border); padding: 0.4rem 0.6rem; text-align: left; }
-.ai-app .message-bubble th { background: var(--surface); font-weight: 600; }
-.ai-app .message-bubble img { max-width: 100%; border-radius: 8px; }
-.ai-app .message-bubble mjx-container { display: inline-block; margin: 0; }
-.ai-app .msg-status { font-size: 0.65rem; color: var(--text-tertiary); padding: 2px 6px; border-radius: 4px; background: var(--surface-hover); display: inline-block; margin-bottom: 4px; }
-.ai-app .message-bubble .typing-cursor { display: inline-block; width: 2px; height: 1em; background: var(--color-info); margin-left: 2px; vertical-align: text-bottom; animation: cursor-blink 0.8s infinite; }
-@keyframes cursor-blink { 0%,50% { opacity: 1; } 51%,100% { opacity: 0; } }
-.ai-app .empty-hint { text-align: center; color: var(--text-tertiary); font-size: 0.8rem; padding: 1.2rem 0.5rem; margin: auto; }
-.ai-app .ai-input-area {
-  background: var(--surface); border-radius: var(--radius-md); border: 1px solid var(--border);
-  padding: 8px 12px; display: flex; gap: 6px; align-items: center; flex-wrap: wrap;
-  transition: border-color var(--transition-fast);
-}
-.ai-app .ai-input-area:focus-within { border-color: var(--border-strong); }
-.ai-app .ai-input-area input {
-  flex: 1; min-width: 150px; padding: 8px 12px; border-radius: 10px; border: 1px solid var(--border);
-  background: var(--bg); font-size: 0.85rem; color: var(--text); outline: none; font-family: inherit;
-}
-.ai-app .ai-input-area input::placeholder { color: var(--text-tertiary); }
-.ai-app .ai-input-actions { display: flex; gap: 6px; align-items: center; }
-.ai-app .ai-toggle-item { display: flex; align-items: center; gap: 4px; font-size: 0.7rem; color: var(--text-secondary); cursor: pointer; user-select: none; }
-.ai-app .ai-toggle-switch { width: 28px; height: 16px; border-radius: 8px; background: var(--border-strong); position: relative; transition: background var(--transition-fast); }
-.ai-app .ai-toggle-switch.active { background: var(--text); }
-.ai-app .ai-toggle-switch::after { content: ''; position: absolute; top: 2px; left: 2px; width: 12px; height: 12px; border-radius: 50%; background: #fff; transition: left 0.2s ease; }
-.ai-app .ai-toggle-switch.active::after { left: 14px; }
-.ai-app .send-btn { width: 36px; height: 36px; border-radius: 50%; border: none; background: var(--send-bg); color: var(--send-text); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: transform 0.2s; flex-shrink: 0; }
-.ai-app .send-btn:active { transform: scale(0.93); }
-.ai-app .send-btn .material-icons { font-size: 18px; }
-.dark .ai-app .message.user .message-bubble { background: #262626; border-color: #303030; }
-.dark .ai-app .message-bubble code { background: #2c2c2c; }
-.dark .ai-app .message-bubble pre { background: #232323; }
-
 footer {
   border-top: 1px solid var(--border-light);
   padding: 32px 64px;
@@ -599,6 +411,146 @@ footer .disclaimer {
 }
 .toast.show { opacity: 1; }
 
+/* ===== 连接丢失页面（概率出现） ===== */
+.connlost-page {
+  min-height: 100vh;
+  display: flex; align-items: center; justify-content: center;
+  background:
+    radial-gradient(1px 1px at 12% 18%, rgba(255,255,255,.9), transparent 60%),
+    radial-gradient(1px 1px at 78% 12%, rgba(255,255,255,.7), transparent 60%),
+    radial-gradient(1.5px 1.5px at 32% 72%, rgba(255,255,255,.6), transparent 60%),
+    radial-gradient(1px 1px at 88% 58%, rgba(255,255,255,.8), transparent 60%),
+    radial-gradient(1px 1px at 55% 88%, rgba(255,255,255,.5), transparent 60%),
+    radial-gradient(1px 1px at 65% 40%, rgba(255,255,255,.7), transparent 60%),
+    radial-gradient(1.5px 1.5px at 8% 88%, rgba(255,255,255,.5), transparent 60%),
+    linear-gradient(180deg, #070b16 0%, #0c1226 55%, #0a0f1e 100%);
+  color: #dbe2f0;
+  font-family: var(--font-pixel);
+  overflow: hidden;
+  position: relative;
+}
+/* 底部像素地形 */
+.connlost-page::before {
+  content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 120px;
+  background: repeating-linear-gradient(0deg, #2a2f3a 0 8px, #232833 8px 16px, #1c2029 16px 24px, #161a22 24px 32px);
+  opacity: .7;
+  -webkit-mask-image: linear-gradient(to top, #000 55%, transparent);
+  mask-image: linear-gradient(to top, #000 55%, transparent);
+}
+/* 扫描线 */
+.connlost-page::after {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background: repeating-linear-gradient(0deg, rgba(255,255,255,.025) 0 1px, transparent 1px 3px);
+}
+.connlost-wrap {
+  position: relative; z-index: 1;
+  text-align: center; padding: 40px 24px;
+  animation: fadeSlideIn .5s ease both;
+  max-width: 560px; width: 100%;
+}
+.connlost-en {
+  font-size: 22px; letter-spacing: 4px;
+  color: #ff6b5e; text-shadow: 0 0 18px rgba(255,80,60,.55);
+  animation: connlost-blink 1.2s infinite;
+  margin-bottom: 14px;
+}
+.connlost-title {
+  font-size: 46px; letter-spacing: 10px; color: #fff;
+  text-shadow: 0 0 24px rgba(120,160,255,.5);
+  margin-bottom: 18px;
+  animation: connlost-shake 2.4s infinite;
+}
+.connlost-sub {
+  font-family: var(--font-body);
+  font-size: 14px; letter-spacing: 2px; color: #9aa5bd;
+  margin-bottom: 28px;
+}
+.connlost-panel {
+  background: rgba(20,26,44,.75);
+  border: 2px solid #2c3550;
+  box-shadow: inset 0 0 30px rgba(0,0,0,.45), 0 8px 30px rgba(0,0,0,.4);
+  border-radius: 10px;
+  padding: 20px 24px;
+  margin-bottom: 22px;
+}
+.connlost-row {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 12px; padding: 10px 0;
+}
+.connlost-row + .connlost-row { border-top: 1px dashed rgba(120,140,190,.25); }
+.connlost-label { font-size: 12px; color: #7f8aa8; letter-spacing: 2px; }
+.connlost-value {
+  font-size: 15px; color: #cfe0ff; letter-spacing: 1px; word-break: break-all;
+  text-align: right;
+}
+.connlost-value.copy { cursor: pointer; position: relative; }
+.connlost-value.copy::after {
+  content: attr(data-tip);
+  position: absolute; top: -26px; right: 0;
+  font-size: 11px; color: #9aa5bd; background: rgba(15,20,35,.9);
+  padding: 4px 10px; border-radius: 4px; border: 1px solid #2c3550;
+  opacity: 0; pointer-events: none; transition: opacity .2s;
+  white-space: nowrap;
+}
+.connlost-value.copy:hover::after { opacity: 1; }
+.connlost-hint {
+  font-size: 12px; color: #7f8aa8; letter-spacing: 2px;
+  margin-bottom: 14px; min-height: 18px;
+}
+.connlost-progress {
+  width: 100%; max-width: 320px; margin: 0 auto 22px;
+  height: 6px; background: rgba(20,26,44,.8);
+  border: 1px solid #2c3550; border-radius: 3px; overflow: hidden;
+}
+.connlost-progress-bar {
+  height: 100%; width: 0%;
+  background: linear-gradient(90deg, #4d8dff, #7ad0ff);
+  box-shadow: 0 0 10px rgba(90,150,255,.8);
+}
+.connlost-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+.mc-btn {
+  font-family: var(--font-pixel);
+  font-size: 14px; letter-spacing: 2px;
+  color: #fff; background: #5f646e;
+  border: 2px solid #000;
+  padding: 10px 26px; cursor: pointer;
+  box-shadow: inset -2px -2px 0 #383c44, inset 2px 2px 0 #8b919c, 0 4px 12px rgba(0,0,0,.5);
+  text-shadow: 2px 2px 0 rgba(0,0,0,.6);
+  transition: background .2s, transform .15s;
+  user-select: none;
+}
+.mc-btn:hover { background: #4f7fd6; box-shadow: inset -2px -2px 0 #2f5aa8, inset 2px 2px 0 #7aa4ee, 0 4px 12px rgba(0,0,0,.5); }
+.mc-btn:active { transform: translateY(1px); }
+.glitch { position: relative; display: inline-block; }
+.glitch::before, .glitch::after {
+  content: attr(data-text);
+  position: absolute; left: 0; top: 0; width: 100%; height: 100%;
+  opacity: .75; pointer-events: none; overflow: hidden;
+}
+.glitch::before { color: #ff4466; transform: translate(-2px, 0); clip-path: inset(0 0 55% 0); animation: connlost-rgb1 1.6s infinite steps(1); }
+.glitch::after  { color: #33eeff; transform: translate(2px, 0); clip-path: inset(55% 0 0 0); animation: connlost-rgb2 1.9s infinite steps(1); }
+@keyframes connlost-rgb1 {
+  0%,100% { clip-path: inset(0 0 55% 0); } 20% { clip-path: inset(30% 0 30% 0); }
+  40% { clip-path: inset(10% 0 70% 0); } 60% { clip-path: inset(50% 0 10% 0); }
+  80% { clip-path: inset(20% 0 60% 0); }
+}
+@keyframes connlost-rgb2 {
+  0%,100% { clip-path: inset(55% 0 0 0); } 25% { clip-path: inset(60% 0 5% 0); }
+  50% { clip-path: inset(20% 0 45% 0); } 75% { clip-path: inset(40% 0 25% 0); }
+}
+@keyframes connlost-blink { 0%,100% { opacity: 1; } 50% { opacity: .45; } }
+@keyframes connlost-shake {
+  0%,100% { transform: translate(0,0); } 10% { transform: translate(-1px,1px); }
+  20% { transform: translate(1px,-1px); } 30% { transform: translate(-1px,-1px); }
+  40% { transform: translate(1px,1px); } 50% { transform: translate(0,0); }
+}
+@media (max-width: 768px) {
+  .connlost-title { font-size: 32px; letter-spacing: 6px; }
+  .connlost-en { font-size: 16px; }
+  .connlost-panel { padding: 16px 14px; }
+  .connlost-wrap { padding: 32px 16px; }
+}
+
 @media (max-width: 768px) {
   body { flex-direction: column; }
   .sidebar {
@@ -619,11 +571,6 @@ footer .disclaimer {
   .cards-row, .info-page .info-grid { padding: 32px 24px; }
   .dl-section { padding: 32px 24px; }
   .dl-card { flex-direction: column; text-align: center; padding: 40px 28px; }
-  .ai-frame-wrap { padding: 32px 24px 32px; }
-  .ai-app .container { padding: 1.2rem 1rem; border-radius: 20px; }
-  .ai-app .messages { max-height: 45vh; min-height: 200px; }
-  .ai-app .message-bubble { max-width: 90%; }
-  .ai-app .ai-side.open { width: 180px; }
   footer { flex-direction: column; gap: 12px; text-align: center; padding: 24px; }
 }
 </style>
@@ -640,7 +587,6 @@ footer .disclaimer {
     <a data-page="home" class="active" onclick="navigateTo('home')" data-i18n="nav.home">首页</a>
     <a data-page="info" onclick="navigateTo('info')" data-i18n="nav.info">服务器信息</a>
     <a data-page="download" onclick="navigateTo('download')" data-i18n="nav.dl">客户端下载</a>
-    <a data-page="ai" onclick="navigateTo('ai')" data-i18n="nav.ai">AI</a>
   </nav>
   <div class="sidebar-bottom">
     <div class="sidebar-row">
@@ -738,65 +684,6 @@ footer .disclaimer {
     </footer>
   </div>
 
-  <div class="page" id="page-ai">
-    <section class="hero-strip">
-      <h2 data-i18n="ai.title">AI</h2>
-      <p class="sub" data-i18n="ai.sub">AI 问答助手</p>
-    </section>
-    <div class="ai-frame-wrap">
-      <div class="ai-app">
-        <div class="container">
-          <div class="ai-layout">
-            <div class="ai-side" id="aiSidebar">
-              <div class="ai-side-content">
-                <div class="ai-side-header">
-                  <span class="ai-side-title">对话</span>
-                  <button class="ai-icon-btn" id="aiCloseSidebar"><span class="material-icons">close</span></button>
-                </div>
-                <button class="ai-new-chat" id="aiNewChat">新对话</button>
-                <div class="ai-chat-list" id="aiChatList"></div>
-              </div>
-            </div>
-            <div class="ai-main">
-              <div class="ai-topbar">
-                <button class="ai-icon-btn" id="aiMenuBtn"><span class="material-icons">menu</span></button>
-                <span class="ai-topbar-title">PaintData</span>
-                <div class="ai-topbar-right">
-                  <button class="ai-model-btn active" data-model="self" id="aiSelfBtn">自研</button>
-                  <button class="ai-model-btn" data-model="glm" id="aiGlmBtn">智谱</button>
-                </div>
-              </div>
-              <div class="messages" id="messageList">
-                <div class="empty-hint" id="emptyHint">开始新的对话</div>
-              </div>
-              <div class="ai-input-area">
-                <input type="text" id="userInput" placeholder="输入内容，支持Markdown和数学公式" autocomplete="off">
-                <div class="ai-input-actions">
-                  <div class="ai-toggle-item" id="deepThinkToggle">
-                    <span>深度</span>
-                    <div class="ai-toggle-switch" id="deepThinkSwitch"></div>
-                  </div>
-                  <div class="ai-toggle-item" id="webSearchToggle">
-                    <span>联网</span>
-                    <div class="ai-toggle-switch" id="webSearchSwitch"></div>
-                  </div>
-                  <button class="send-btn" id="sendBtn" aria-label="发送"><span class="material-icons">arrow_upward</span></button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <footer>
-      <div class="copy" data-i18n="footer.copy">&copy; 2026 澜云阁</div>
-      <div class="disclaimer" data-i18n="footer.disclaimer">本网站不属于Mojang与Microsoft及相关网页</div>
-      <div class="links">
-        <a onclick="navigateTo('home')" data-i18n="footer.home">返回首页</a>
-      </div>
-    </footer>
-  </div>
-
   <div class="page" id="page-download">
     <section class="hero-strip">
       <h2 data-i18n="dl.title">客户端下载</h2>
@@ -828,6 +715,30 @@ footer .disclaimer {
     </footer>
   </div>
 
+  <div class="page connlost-page" id="page-connlost">
+    <div class="connlost-wrap">
+      <div class="connlost-en glitch" id="connlostEn" data-text="Disconnected!">Disconnected!</div>
+      <h2 class="connlost-title glitch" id="connlostTitle" data-text="连接丢失">连接丢失</h2>
+      <p class="connlost-sub" data-i18n="connlost.sub">与服务器的连接已丢失</p>
+      <div class="connlost-panel">
+        <div class="connlost-row">
+          <span class="connlost-label" data-i18n="connlost.ip">服务器地址</span>
+          <span class="connlost-value copy" data-tip-zh="点击复制" data-tip-en="Click to Copy" onclick="copyText('mc.litarcarft.cc.cd')">mc.litarcarft.cc.cd</span>
+        </div>
+        <div class="connlost-row">
+          <span class="connlost-label" data-i18n="connlost.ver">游戏版本</span>
+          <span class="connlost-value">Java 1.21.11</span>
+        </div>
+      </div>
+      <div class="connlost-progress"><div class="connlost-progress-bar" id="connlostBar"></div></div>
+      <p class="connlost-hint" id="connlostHint" data-i18n="connlost.hint">正在重新连接服务器...</p>
+      <div class="connlost-actions">
+        <button class="mc-btn" id="connlostReconnect" data-i18n="connlost.reconnect">重新连接</button>
+        <button class="mc-btn" id="connlostHome" data-i18n="connlost.home">返回首页</button>
+      </div>
+    </div>
+  </div>
+
 </main>
 
 <div class="toast" id="toast" data-i18n="toast">已复制到剪贴板</div>
@@ -835,29 +746,34 @@ footer .disclaimer {
 <script>
 var currentPage = 'home';
 var currentLang = 'zh';
+var CONNLOST_CHANCE = 0.15; /* 导航时触发连接丢失页的概率（15%） */
+var connlostTarget = null;
+var connlostTimer = null;
+var connlostGlitchTimer = null;
+var CONNLOST_GLITCH_POOL = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789#$%&@!?*+=<>[]{}()/\\|;:,.^~`▓▒░█龘靐齉爨灪麤彠嚻';
 
 var i18n = {
   zh: {
     logo: '澜云阁',
-    nav: { home: '首页', info: '服务器信息', dl: '客户端下载', ai: 'AI' },
+    nav: { home: '首页', info: '服务器信息', dl: '客户端下载' },
     theme: '深色模式',
     home: { title: '澜云阁 Minecraft', sub: '高性能 Paper 模组服务器 · 纯净体验', f1: '高性能内核', f2: '游戏版本', f3: '持续运行' },
     info: { title: '服务器信息', card1: '服务器地址', card2: '核心类型', card3: '游戏版本' },
     dl: { title: '客户端下载', sub: '集成 Paper 模组 · 开箱即玩', client: '澜云阁客户端', clientSub: '适配 1.20.1 · 包含必需模组', btn: '下载客户端' },
-    ai: { title: 'AI', sub: 'AI 问答助手' },
     footer: { copy: '© 2026 澜云阁', dl: '客户端下载', info: '服务器信息', home: '返回首页', disclaimer: '本网站不属于Mojang与Microsoft及相关网页' },
+    connlost: { sub: '与服务器的连接已丢失', ip: '服务器地址', ver: '游戏版本', hint: '正在重新连接服务器...', reconnect: '重新连接', home: '返回首页' },
     toast: '已复制到剪贴板',
     tip: '点击复制'
   },
   en: {
     logo: 'LanYunGe',
-    nav: { home: 'Home', info: 'Server Info', dl: 'Download', ai: 'AI' },
+    nav: { home: 'Home', info: 'Server Info', dl: 'Download' },
     theme: 'Dark Mode',
     home: { title: 'LanYunGe Minecraft', sub: 'High-performance Paper Server · Pure Experience', f1: 'High Performance', f2: 'Game Version', f3: 'Always Online' },
     info: { title: 'Server Info', card1: 'Server Address', card2: 'Core Type', card3: 'Game Version' },
     dl: { title: 'Download Client', sub: 'Integrated Mods · Ready to Play', client: 'LanYunGe Client', clientSub: 'For 1.20.1 · Essential Mods', btn: 'Download' },
-    ai: { title: 'AI', sub: 'AI Q&A Assistant' },
     footer: { copy: '© 2026 LanYunGe', dl: 'Download', info: 'Server Info', home: 'Home', disclaimer: 'This website is not affiliated with Mojang or Microsoft, nor any related websites.' },
+    connlost: { sub: 'Connection to the server has been lost', ip: 'Server Address', ver: 'Game Version', hint: 'Reconnecting to server...', reconnect: 'Reconnect', home: 'Back to Home' },
     toast: 'Copied to clipboard',
     tip: 'Click to Copy'
   }
@@ -872,7 +788,7 @@ function applyLang(lang) {
     keys.forEach(function(k){ val = val[k]; });
     if (val !== undefined) el.textContent = val;
   });
-  document.querySelectorAll('.value.copy').forEach(function(el){
+  document.querySelectorAll('.value.copy, .connlost-value.copy').forEach(function(el){
     el.dataset.tip = i18n[lang].tip;
   });
   document.querySelectorAll('.lang-toggle span').forEach(function(s){
@@ -889,7 +805,27 @@ function setLang(lang) {
 }
 
 function navigateTo(pageName) {
-  if (pageName === currentPage) return;
+  if (pageName === 'connlost' || pageName === currentPage) return;
+  if (connlostTarget) {
+    finishNavigate(pageName);
+    return;
+  }
+  if (Math.random() < CONNLOST_CHANCE) {
+    connlostTarget = pageName;
+    switchPage('connlost');
+    startConnlost(pageName);
+    return;
+  }
+  finishNavigate(pageName);
+}
+
+function finishNavigate(pageName) {
+  stopConnlost();
+  connlostTarget = null;
+  switchPage(pageName);
+}
+
+function switchPage(pageName) {
   var oldPage = document.getElementById('page-' + currentPage);
   var newPage = document.getElementById('page-' + pageName);
   if (!oldPage || !newPage) return;
@@ -908,6 +844,63 @@ function navigateTo(pageName) {
     el.offsetHeight;
     el.style.animation = '';
   });
+}
+
+function connlostRandChar() {
+  return CONNLOST_GLITCH_POOL[Math.floor(Math.random() * CONNLOST_GLITCH_POOL.length)];
+}
+
+function startConnlost(pageName) {
+  var bar = document.getElementById('connlostBar');
+  if (bar) {
+    bar.style.transition = 'none';
+    bar.style.width = '0%';
+    requestAnimationFrame(function(){
+      requestAnimationFrame(function(){
+        bar.style.transition = 'width 2.8s linear';
+        bar.style.width = '100%';
+      });
+    });
+  }
+
+  var glitchEls = [
+    { el: document.getElementById('connlostEn'), target: 'Disconnected!' },
+    { el: document.getElementById('connlostTitle'), target: '连接丢失' }
+  ];
+  var frame = 0;
+  if (connlostGlitchTimer) clearInterval(connlostGlitchTimer);
+  connlostGlitchTimer = setInterval(function(){
+    frame++;
+    var cycle = Math.floor(frame / 26) % 3; /* 0 全乱码 → 1 逐字解码 → 2 正常停留 */
+    glitchEls.forEach(function(item){
+      if (!item.el) return;
+      var t = item.target, len = t.length, str = '', i;
+      if (cycle === 0) {
+        for (i = 0; i < len; i++) str += connlostRandChar();
+      } else if (cycle === 1) {
+        var done = Math.floor((frame % 26) / 2);
+        for (i = 0; i < len; i++) str += (i < done) ? t[i] : connlostRandChar();
+      } else {
+        str = t;
+      }
+      item.el.textContent = str;
+      item.el.setAttribute('data-text', str);
+    });
+  }, 50);
+
+  if (connlostTimer) clearTimeout(connlostTimer);
+  connlostTimer = setTimeout(function(){
+    finishNavigate(connlostTarget || 'home');
+  }, 2800);
+}
+
+function stopConnlost() {
+  if (connlostTimer) { clearTimeout(connlostTimer); connlostTimer = null; }
+  if (connlostGlitchTimer) { clearInterval(connlostGlitchTimer); connlostGlitchTimer = null; }
+  var a = document.getElementById('connlostEn');
+  var b = document.getElementById('connlostTitle');
+  if (a) { a.textContent = 'Disconnected!'; a.setAttribute('data-text', 'Disconnected!'); }
+  if (b) { b.textContent = '连接丢失'; b.setAttribute('data-text', '连接丢失'); }
 }
 
 function devtoolsRedirect() {
@@ -955,6 +948,15 @@ function copyText(text) {
   if (localStorage.getItem('theme') === 'dark') el.classList.add('dark');
   var savedLang = localStorage.getItem('lang') || 'zh';
   applyLang(savedLang);
+
+  var reconnectBtn = document.getElementById('connlostReconnect');
+  var homeBtn = document.getElementById('connlostHome');
+  if (reconnectBtn) reconnectBtn.addEventListener('click', function(){
+    finishNavigate(connlostTarget || 'home');
+  });
+  if (homeBtn) homeBtn.addEventListener('click', function(){
+    finishNavigate('home');
+  });
 })();
 
 function toggleTheme() {
@@ -962,353 +964,6 @@ function toggleTheme() {
   el.classList.toggle('dark');
   localStorage.setItem('theme', el.classList.contains('dark') ? 'dark' : 'light');
 }
-
-/* ===== PaintData AI App ===== */
-(function() {
-  var ZHIPU_API_URL = 'https://open.bigmodel.cn/api/paas/v4/chat/completions';
-  var ENC_API_KEY = 'ODQyYjY5ODdlYWM4NGNjYWI1NmViOTUyYTljYjZiM2MuR01Gem5IRzZaOE5RZHN0SQ==';
-  var DEEP_THINK_MODEL = 'glm-4-plus';
-  var WEB_SEARCH_MODEL = 'glm-4-flash';
-  var DEFAULT_MODEL = 'glm-4-flash';
-
-  function getApiKey() { return atob(ENC_API_KEY); }
-  var apiKey = getApiKey();
-
-  var selectedModel = 'self';
-  var deepThinkEnabled = false;
-  var webSearchEnabled = false;
-  var isProcessing = false;
-  var currentChatId = null;
-  var chats = {};
-
-  try {
-    var saved = localStorage.getItem('paintdata_chats');
-    if (saved) chats = JSON.parse(saved);
-  } catch(e) { chats = {}; }
-
-  if (Object.keys(chats).length === 0) {
-    var initId = 'chat_' + Date.now();
-    chats[initId] = { title: '对话 1', messages: [] };
-    currentChatId = initId;
-  } else {
-    currentChatId = Object.keys(chats)[0];
-  }
-
-  var qaDatabase = {};
-  try {
-    var c = document.cookie.split('; ').find(function(r) { return r.startsWith('paintdata_qa='); });
-    if (c) qaDatabase = JSON.parse(decodeURIComponent(c.split('=')[1]));
-  } catch(e) { qaDatabase = {}; }
-
-  var keywordResponses = {
-    '你好': '你好！很高兴见到你。',
-    '在吗': '在的，我一直都在。',
-    '早安': '早安！祝你今天心情愉快。',
-    '晚安': '晚安，做个好梦。',
-    '谢谢': '不客气。',
-    '再见': '再见。',
-    '天气': '今天天气应该不错。',
-    '学习': '学习是一个持续的过程。',
-    '人工': '人工智能正在改变世界。',
-    '数据': '数据是新时代的石油。',
-    '算法': '算法是解决问题的步骤。',
-    '模型': '模型需要大量数据训练。',
-    '语言': '语言是人类交流的工具。',
-    '知识': '知识就是力量。',
-    '实践': '实践出真知。',
-    '思考': '思考让人成长。',
-    '沟通': '沟通是理解的桥梁。',
-    '帮助': '我很乐意帮助你。',
-    '面包': '做面包的基本步骤：1. 准备面粉、酵母、水、盐。2. 揉面。3. 发酵。4. 整形。5. 烤箱180度烤25分钟。',
-    '怎么做': '告诉我你想做什么。',
-    '怎么办': '别着急，一步步来。'
-  };
-
-  function saveChats() { try { localStorage.setItem('paintdata_chats', JSON.stringify(chats)); } catch(e){} }
-  function saveQA(q, a) { try { qaDatabase[q] = a; document.cookie = 'paintdata_qa=' + encodeURIComponent(JSON.stringify(qaDatabase)) + '; max-age=2592000; path=/'; } catch(e){} }
-
-  var aiSidebar = document.getElementById('aiSidebar');
-  var aiMenuBtn = document.getElementById('aiMenuBtn');
-  var aiCloseSidebar = document.getElementById('aiCloseSidebar');
-  var aiNewChat = document.getElementById('aiNewChat');
-  var aiChatList = document.getElementById('aiChatList');
-  var messageList = document.getElementById('messageList');
-  var userInput = document.getElementById('userInput');
-  var sendBtn = document.getElementById('sendBtn');
-  var aiSelfBtn = document.getElementById('aiSelfBtn');
-  var aiGlmBtn = document.getElementById('aiGlmBtn');
-  var deepThinkToggle = document.getElementById('deepThinkToggle');
-  var deepThinkSwitch = document.getElementById('deepThinkSwitch');
-  var webSearchToggle = document.getElementById('webSearchToggle');
-  var webSearchSwitch = document.getElementById('webSearchSwitch');
-
-  function renderMarkdown(text) {
-    var processed = text;
-    var mathBlocks = [];
-    processed = processed.replace(/\$\$([\s\S]+?)\$\$/g, function(match, content) {
-      var id = 'MATHBLOCK' + mathBlocks.length;
-      mathBlocks.push({ type: 'display', content: content });
-      return '\n' + id + '\n';
-    });
-    processed = processed.replace(/\$([^\$\n]+?)\$/g, function(match, content) {
-      var id = 'MATHINLINE' + mathBlocks.length;
-      mathBlocks.push({ type: 'inline', content: content });
-      return id;
-    });
-    var html = marked.parse(processed);
-    mathBlocks.forEach(function(block, i) {
-      var id = (block.type === 'display' ? 'MATHBLOCK' : 'MATHINLINE') + i;
-      var mathHtml = block.type === 'display'
-        ? '\\[' + block.content + '\\]'
-        : '\\(' + block.content + '\\)';
-      html = html.replace(id, mathHtml);
-    });
-    return html;
-  }
-
-  function renderChatList() {
-    aiChatList.innerHTML = '';
-    Object.keys(chats).forEach(function(id) {
-      var item = document.createElement('div');
-      item.className = 'ai-chat-item' + (id === currentChatId ? ' active' : '');
-      var span = document.createElement('span');
-      span.textContent = chats[id].title || '对话';
-      var del = document.createElement('button');
-      del.className = 'del-btn';
-      del.textContent = 'x';
-      del.addEventListener('click', function(e) {
-        e.stopPropagation();
-        if (Object.keys(chats).length <= 1) return;
-        delete chats[id];
-        if (id === currentChatId) currentChatId = Object.keys(chats)[0];
-        saveChats(); renderChatList(); renderMessages();
-      });
-      item.appendChild(span);
-      item.appendChild(del);
-      item.addEventListener('click', function() { currentChatId = id; renderChatList(); renderMessages(); });
-      aiChatList.appendChild(item);
-    });
-  }
-
-  function renderMessages() {
-    messageList.innerHTML = '';
-    if (!currentChatId || !chats[currentChatId]) return;
-    var msgs = chats[currentChatId].messages || [];
-    if (msgs.length === 0) {
-      var hint = document.createElement('div');
-      hint.className = 'empty-hint';
-      hint.textContent = '开始新的对话';
-      messageList.appendChild(hint);
-      return;
-    }
-    msgs.forEach(function(m) {
-      var div = document.createElement('div');
-      div.className = 'message ' + m.sender;
-      var bub = document.createElement('div');
-      bub.className = 'message-bubble';
-      if (m.status) {
-        var statusEl = document.createElement('div');
-        statusEl.className = 'msg-status';
-        statusEl.textContent = m.status;
-        bub.appendChild(statusEl);
-      }
-      var contentEl = document.createElement('div');
-      contentEl.innerHTML = m.sender === 'assistant' ? renderMarkdown(m.content) : m.content;
-      bub.appendChild(contentEl);
-      div.appendChild(bub);
-      messageList.appendChild(div);
-    });
-    if (window.MathJax && window.MathJax.typesetPromise) {
-      MathJax.typesetPromise([messageList]).catch(function(){});
-    }
-    messageList.scrollTop = messageList.scrollHeight;
-  }
-
-  function addMessage(content, sender, status) {
-    if (!currentChatId || !chats[currentChatId]) return;
-    chats[currentChatId].messages.push({ sender: sender, content: content, status: status || '' });
-    if (chats[currentChatId].messages.length === 2 && sender === 'assistant') {
-      chats[currentChatId].title = content.slice(0, 15) + '...';
-    }
-    saveChats(); renderMessages(); renderChatList();
-  }
-
-  function typeText(bubble, content, status, callback) {
-    var cursor = document.createElement('span');
-    cursor.className = 'typing-cursor';
-    bubble.appendChild(cursor);
-    var charIndex = 0;
-    var totalChars = content.length;
-    var speed = totalChars > 100 ? 6 : 12;
-    function typeNextChar() {
-      if (charIndex < totalChars) {
-        bubble.innerHTML = '';
-        if (status) {
-          var sEl = document.createElement('div');
-          sEl.className = 'msg-status';
-          sEl.textContent = status;
-          bubble.appendChild(sEl);
-        }
-        var cEl = document.createElement('div');
-        cEl.innerHTML = renderMarkdown(content.slice(0, charIndex + 1));
-        bubble.appendChild(cEl);
-        bubble.appendChild(cursor);
-        if (window.MathJax && window.MathJax.typesetPromise) {
-          MathJax.typesetPromise([bubble]).catch(function(){});
-        }
-        charIndex++;
-        messageList.scrollTop = messageList.scrollHeight;
-        setTimeout(typeNextChar, speed);
-      } else {
-        cursor.remove();
-        bubble.innerHTML = '';
-        if (status) {
-          var sEl2 = document.createElement('div');
-          sEl2.className = 'msg-status';
-          sEl2.textContent = status;
-          bubble.appendChild(sEl2);
-        }
-        var cEl2 = document.createElement('div');
-        cEl2.innerHTML = renderMarkdown(content);
-        bubble.appendChild(cEl2);
-        if (window.MathJax && window.MathJax.typesetPromise) {
-          MathJax.typesetPromise([bubble]).catch(function(){});
-        }
-        if (callback) callback();
-      }
-    }
-    typeNextChar();
-  }
-
-  function addMessageWithTyping(content, sender, status) {
-    if (!currentChatId || !chats[currentChatId]) return;
-    chats[currentChatId].messages.push({ sender: sender, content: content, status: status || '' });
-    if (chats[currentChatId].messages.length === 2 && sender === 'assistant') {
-      chats[currentChatId].title = content.slice(0, 15) + '...';
-    }
-    saveChats();
-    renderChatList();
-    renderMessages();
-    var lastMsg = messageList.lastElementChild;
-    if (lastMsg && sender === 'assistant') {
-      var bubble = lastMsg.querySelector('.message-bubble');
-      if (bubble) typeText(bubble, content, status, null);
-    }
-  }
-
-  function selfAIResponse(q) {
-    if (qaDatabase[q]) return qaDatabase[q];
-    var keys = Object.keys(keywordResponses).sort(function(a, b) { return b.length - a.length; });
-    for (var i = 0; i < keys.length; i++) {
-      if (q.indexOf(keys[i]) !== -1) return keywordResponses[keys[i]];
-    }
-    return null;
-  }
-
-  function callZhipu(q, ctx, modelName) {
-    var systemPrompt = '你是PaintData，由PaintData团队开发。请用中文回答，支持Markdown和LaTeX数学公式（行内$...$，独立$$...$$，分数用\\frac）。';
-    var messages = [{ role: 'system', content: systemPrompt }];
-    messages = messages.concat(ctx.slice(-6));
-    messages.push({ role: 'user', content: q });
-    return fetch(ZHIPU_API_URL, {
-      method: 'POST',
-      headers: { 'Authorization': 'Bearer ' + apiKey, 'Content-Type': 'application/json' },
-      body: JSON.stringify({ model: modelName, messages: messages, temperature: 0.7, max_tokens: 1024 })
-    }).then(function(response) {
-      if (!response.ok) throw new Error('fail');
-      return response.json();
-    }).then(function(data) {
-      return data.choices[0].message.content;
-    });
-  }
-
-  aiMenuBtn.addEventListener('click', function() { aiSidebar.classList.toggle('open'); });
-  aiCloseSidebar.addEventListener('click', function() { aiSidebar.classList.remove('open'); });
-
-  aiNewChat.addEventListener('click', function() {
-    var id = 'chat_' + Date.now();
-    chats[id] = { title: '新对话', messages: [] };
-    currentChatId = id;
-    saveChats(); renderChatList(); renderMessages();
-  });
-
-  aiSelfBtn.addEventListener('click', function() {
-    selectedModel = 'self';
-    aiSelfBtn.classList.add('active');
-    aiGlmBtn.classList.remove('active');
-  });
-
-  aiGlmBtn.addEventListener('click', function() {
-    selectedModel = 'glm';
-    aiGlmBtn.classList.add('active');
-    aiSelfBtn.classList.remove('active');
-  });
-
-  deepThinkToggle.addEventListener('click', function() {
-    deepThinkEnabled = !deepThinkEnabled;
-    deepThinkSwitch.classList.toggle('active', deepThinkEnabled);
-  });
-
-  webSearchToggle.addEventListener('click', function() {
-    webSearchEnabled = !webSearchEnabled;
-    webSearchSwitch.classList.toggle('active', webSearchEnabled);
-  });
-
-  function handleSend() {
-    if (isProcessing) return;
-    var text = userInput.value.trim();
-    if (!text) return;
-    userInput.value = '';
-    addMessage(text, 'user');
-    var ctx = (chats[currentChatId] && chats[currentChatId].messages ? chats[currentChatId].messages : []).map(function(m) {
-      return { role: m.sender === 'user' ? 'user' : 'assistant', content: m.content };
-    });
-    isProcessing = true; sendBtn.disabled = true;
-
-    var statusText = '';
-    if (deepThinkEnabled) statusText += '深度思考 ';
-    if (webSearchEnabled) statusText += '联网搜索';
-
-    setTimeout(function() {
-      var modelName = DEFAULT_MODEL;
-      if (deepThinkEnabled) modelName = DEEP_THINK_MODEL;
-      if (webSearchEnabled) modelName = WEB_SEARCH_MODEL;
-
-      if (selectedModel === 'glm' || deepThinkEnabled || webSearchEnabled) {
-        callZhipu(text, ctx, modelName).then(function(r) {
-          saveQA(text, r);
-          addMessageWithTyping(r, 'assistant', statusText);
-          isProcessing = false; sendBtn.disabled = false;
-        }).catch(function() {
-          addMessageWithTyping('抱歉，智谱API调用失败。', 'assistant', statusText);
-          isProcessing = false; sendBtn.disabled = false;
-        });
-      } else {
-        var local = selfAIResponse(text);
-        if (local) {
-          addMessageWithTyping(local, 'assistant', statusText);
-          isProcessing = false; sendBtn.disabled = false;
-        } else {
-          callZhipu(text, ctx, modelName).then(function(r) {
-            saveQA(text, r);
-            addMessageWithTyping(r, 'assistant', statusText);
-            isProcessing = false; sendBtn.disabled = false;
-          }).catch(function() {
-            addMessageWithTyping('抱歉，暂时无法回答。', 'assistant', statusText);
-            isProcessing = false; sendBtn.disabled = false;
-          });
-        }
-      }
-    }, 80);
-  }
-
-  sendBtn.addEventListener('click', handleSend);
-  userInput.addEventListener('keydown', function(e) { if (e.key === 'Enter') { e.preventDefault(); handleSend(); } });
-
-  renderChatList();
-  renderMessages();
-})();
-/* ===== End PaintData AI App ===== */
 </script>
 
 </body>
