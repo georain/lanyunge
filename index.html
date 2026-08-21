@@ -412,6 +412,14 @@ footer .disclaimer {
 .toast.show { opacity: 1; }
 
 /* ===== 连接丢失页面（概率出现） ===== */
+/* 侧边栏概率出现的连接丢失按钮 */
+.sidebar nav a.connlost-link {
+  color: #ff6b5e;
+  animation: connlost-blink 1.6s infinite, fadeSlideIn .6s ease both;
+}
+.sidebar nav a.connlost-link:hover { color: #ffb3a8; }
+.sidebar nav a.connlost-link.active { color: #ff6b5e; font-weight: 500; }
+
 .connlost-page {
   min-height: 100vh;
   display: flex; align-items: center; justify-content: center;
@@ -496,16 +504,6 @@ footer .disclaimer {
 .connlost-hint {
   font-size: 12px; color: #7f8aa8; letter-spacing: 2px;
   margin-bottom: 14px; min-height: 18px;
-}
-.connlost-progress {
-  width: 100%; max-width: 320px; margin: 0 auto 22px;
-  height: 6px; background: rgba(20,26,44,.8);
-  border: 1px solid #2c3550; border-radius: 3px; overflow: hidden;
-}
-.connlost-progress-bar {
-  height: 100%; width: 0%;
-  background: linear-gradient(90deg, #4d8dff, #7ad0ff);
-  box-shadow: 0 0 10px rgba(90,150,255,.8);
 }
 .connlost-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
 .mc-btn {
@@ -730,8 +728,7 @@ footer .disclaimer {
           <span class="connlost-value">Java 1.21.11</span>
         </div>
       </div>
-      <div class="connlost-progress"><div class="connlost-progress-bar" id="connlostBar"></div></div>
-      <p class="connlost-hint" id="connlostHint" data-i18n="connlost.hint">正在重新连接服务器...</p>
+      <p class="connlost-hint" id="connlostHint" data-i18n="connlost.hint">请点击下方按钮重新连接服务器</p>
       <div class="connlost-actions">
         <button class="mc-btn" id="connlostReconnect" data-i18n="connlost.reconnect">重新连接</button>
         <button class="mc-btn" id="connlostHome" data-i18n="connlost.home">返回首页</button>
@@ -746,9 +743,8 @@ footer .disclaimer {
 <script>
 var currentPage = 'home';
 var currentLang = 'zh';
-var CONNLOST_CHANCE = 0.15; /* 导航时触发连接丢失页的概率（15%） */
-var connlostTarget = null;
-var connlostTimer = null;
+var CONNLOST_CHANCE = 0.15; /* 进入/刷新页面时，侧边栏出现“连接丢失”按钮的概率（15%） */
+var connlostPrevPage = null; /* 进入连接丢失页前的页面，供“重新连接”返回 */
 var connlostGlitchTimer = null;
 var CONNLOST_GLITCH_POOL = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789#$%&@!?*+=<>[]{}()/\\|;:,.^~`▓▒░█龘靐齉爨灪麤彠嚻';
 
@@ -761,7 +757,7 @@ var i18n = {
     info: { title: '服务器信息', card1: '服务器地址', card2: '核心类型', card3: '游戏版本' },
     dl: { title: '客户端下载', sub: '集成 Paper 模组 · 开箱即玩', client: '澜云阁客户端', clientSub: '适配 1.20.1 · 包含必需模组', btn: '下载客户端' },
     footer: { copy: '© 2026 澜云阁', dl: '客户端下载', info: '服务器信息', home: '返回首页', disclaimer: '本网站不属于Mojang与Microsoft及相关网页' },
-    connlost: { sub: '与服务器的连接已丢失', ip: '服务器地址', ver: '游戏版本', hint: '正在重新连接服务器...', reconnect: '重新连接', home: '返回首页' },
+    connlost: { sub: '与服务器的连接已丢失', ip: '服务器地址', ver: '游戏版本', hint: '请点击下方按钮重新连接服务器', reconnect: '重新连接', home: '返回首页', nav: '连接丢失' },
     toast: '已复制到剪贴板',
     tip: '点击复制'
   },
@@ -773,7 +769,7 @@ var i18n = {
     info: { title: 'Server Info', card1: 'Server Address', card2: 'Core Type', card3: 'Game Version' },
     dl: { title: 'Download Client', sub: 'Integrated Mods · Ready to Play', client: 'LanYunGe Client', clientSub: 'For 1.20.1 · Essential Mods', btn: 'Download' },
     footer: { copy: '© 2026 LanYunGe', dl: 'Download', info: 'Server Info', home: 'Home', disclaimer: 'This website is not affiliated with Mojang or Microsoft, nor any related websites.' },
-    connlost: { sub: 'Connection to the server has been lost', ip: 'Server Address', ver: 'Game Version', hint: 'Reconnecting to server...', reconnect: 'Reconnect', home: 'Back to Home' },
+    connlost: { sub: 'Connection to the server has been lost', ip: 'Server Address', ver: 'Game Version', hint: 'Click the button below to reconnect', reconnect: 'Reconnect', home: 'Back to Home', nav: 'Connection Lost' },
     toast: 'Copied to clipboard',
     tip: 'Click to Copy'
   }
@@ -805,23 +801,18 @@ function setLang(lang) {
 }
 
 function navigateTo(pageName) {
-  if (pageName === 'connlost' || pageName === currentPage) return;
-  if (connlostTarget) {
-    finishNavigate(pageName);
-    return;
-  }
-  if (Math.random() < CONNLOST_CHANCE) {
-    connlostTarget = pageName;
+  if (pageName === currentPage) return;
+  if (pageName === 'connlost') {
+    connlostPrevPage = currentPage;
     switchPage('connlost');
-    startConnlost(pageName);
+    startConnlost();
     return;
   }
-  finishNavigate(pageName);
+  switchPage(pageName);
 }
 
 function finishNavigate(pageName) {
   stopConnlost();
-  connlostTarget = null;
   switchPage(pageName);
 }
 
@@ -850,19 +841,7 @@ function connlostRandChar() {
   return CONNLOST_GLITCH_POOL[Math.floor(Math.random() * CONNLOST_GLITCH_POOL.length)];
 }
 
-function startConnlost(pageName) {
-  var bar = document.getElementById('connlostBar');
-  if (bar) {
-    bar.style.transition = 'none';
-    bar.style.width = '0%';
-    requestAnimationFrame(function(){
-      requestAnimationFrame(function(){
-        bar.style.transition = 'width 2.8s linear';
-        bar.style.width = '100%';
-      });
-    });
-  }
-
+function startConnlost() {
   var glitchEls = [
     { el: document.getElementById('connlostEn'), target: 'Disconnected!' },
     { el: document.getElementById('connlostTitle'), target: '连接丢失' }
@@ -887,20 +866,31 @@ function startConnlost(pageName) {
       item.el.setAttribute('data-text', str);
     });
   }, 50);
-
-  if (connlostTimer) clearTimeout(connlostTimer);
-  connlostTimer = setTimeout(function(){
-    finishNavigate(connlostTarget || 'home');
-  }, 2800);
 }
 
 function stopConnlost() {
-  if (connlostTimer) { clearTimeout(connlostTimer); connlostTimer = null; }
   if (connlostGlitchTimer) { clearInterval(connlostGlitchTimer); connlostGlitchTimer = null; }
   var a = document.getElementById('connlostEn');
   var b = document.getElementById('connlostTitle');
   if (a) { a.textContent = 'Disconnected!'; a.setAttribute('data-text', 'Disconnected!'); }
   if (b) { b.textContent = '连接丢失'; b.setAttribute('data-text', '连接丢失'); }
+}
+
+/* 进入/刷新页面时按概率在侧边栏多出一个“连接丢失”按钮 */
+function maybeShowConnlostBtn() {
+  /* 支持 URL 参数强制显示：index.html?connlost 或 ?connlost=1 */
+  var force = false;
+  try { force = /[?&]connlost(=|&|$)/.test(location.search); } catch(e) {}
+  if (!force && Math.random() >= CONNLOST_CHANCE) return;
+  var nav = document.querySelector('.sidebar nav');
+  if (!nav || nav.querySelector('a[data-page="connlost"]')) return;
+  var a = document.createElement('a');
+  a.className = 'connlost-link';
+  a.dataset.page = 'connlost';
+  a.setAttribute('data-i18n', 'connlost.nav');
+  a.textContent = i18n[currentLang].connlost.nav;
+  a.onclick = function(){ navigateTo('connlost'); };
+  nav.appendChild(a);
 }
 
 function devtoolsRedirect() {
@@ -949,10 +939,12 @@ function copyText(text) {
   var savedLang = localStorage.getItem('lang') || 'zh';
   applyLang(savedLang);
 
+  maybeShowConnlostBtn();
+
   var reconnectBtn = document.getElementById('connlostReconnect');
   var homeBtn = document.getElementById('connlostHome');
   if (reconnectBtn) reconnectBtn.addEventListener('click', function(){
-    finishNavigate(connlostTarget || 'home');
+    finishNavigate(connlostPrevPage || 'home');
   });
   if (homeBtn) homeBtn.addEventListener('click', function(){
     finishNavigate('home');
