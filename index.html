@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>澜云阁 | Minecraft公益服</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <link rel="icon" href="server-icon.ico" sizes="any">
 <link rel="apple-touch-icon" sizes="64x64" href="server-icon.png">
@@ -18,42 +18,61 @@
   font-display: swap;
 }
 :root {
-  --bg: #fff;
-  --surface: #f8f9fa;
-  --border: #dadce0;
-  --border-light: #f1f3f4;
-  --text: #202124;
-  --text-secondary: #5f6368;
-  --text-tertiary: #9aa0a6;
-  --brand: #1a1a1a;
-  --btn-bg: #202124;
-  --btn-text: #fff;
-  --toast-bg: #202124;
-  --toast-text: #fff;
-  --link: #1a73e8;
-  --shadow: rgba(60,64,67,.08);
-  --icon-stroke: #5f6368;
-  --hover-text: #202124;
+  --bg: #f5f5f7;
+  --surface: rgba(255, 255, 255, 0.72);
+  --surface-solid: #ffffff;
+  --border: rgba(0, 0, 0, 0.06);
+  --border-light: rgba(0, 0, 0, 0.04);
+  --text: #1d1d1f;
+  --text-secondary: #6e6e73;
+  --text-tertiary: #8e8e93;
+  --brand: #1d1d1f;
+  --accent: #007aff;
+  --accent-light: rgba(0, 122, 255, 0.10);
+  --accent-glow: rgba(0, 122, 255, 0.20);
+  --btn-bg: #007aff;
+  --btn-text: #ffffff;
+  --toast-bg: rgba(30, 30, 30, 0.85);
+  --toast-text: #ffffff;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.04);
+  --shadow-md: 0 8px 30px rgba(0,0,0,0.08);
+  --shadow-lg: 0 20px 60px rgba(0,0,0,0.10);
+  --shadow-glass: 0 8px 32px rgba(0,0,0,0.06);
+  --icon-stroke: #6e6e73;
+  --hover-text: #1d1d1f;
   --font-pixel: 'Zpix', monospace;
-  --font-body: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body: 'Inter', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', sans-serif;
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --transition: cubic-bezier(0.25, 0.1, 0.25, 1);
+  --glass-blur: blur(24px);
+  --glass-saturate: saturate(1.4);
 }
 .dark {
-  --bg: #0d0d0d;
-  --surface: #1a1a1a;
-  --border: #2d2d2d;
-  --border-light: #222;
-  --text: #e8eaed;
-  --text-secondary: #9aa0a6;
-  --text-tertiary: #5f6368;
-  --brand: #e8eaed;
-  --btn-bg: #e8eaed;
-  --btn-text: #0d0d0d;
-  --toast-bg: #e8eaed;
-  --toast-text: #0d0d0d;
-  --link: #8ab4f8;
-  --shadow: rgba(0,0,0,.3);
-  --icon-stroke: #9aa0a6;
-  --hover-text: #e8eaed;
+  --bg: #000000;
+  --surface: rgba(28, 28, 30, 0.72);
+  --surface-solid: #1c1c1e;
+  --border: rgba(255, 255, 255, 0.08);
+  --border-light: rgba(255, 255, 255, 0.05);
+  --text: #f5f5f7;
+  --text-secondary: #8e8e93;
+  --text-tertiary: #636366;
+  --brand: #f5f5f7;
+  --accent: #0a84ff;
+  --accent-light: rgba(10, 132, 255, 0.12);
+  --accent-glow: rgba(10, 132, 255, 0.18);
+  --btn-bg: #0a84ff;
+  --btn-text: #ffffff;
+  --toast-bg: rgba(255, 255, 255, 0.85);
+  --toast-text: #1d1d1f;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
+  --shadow-md: 0 8px 30px rgba(0,0,0,0.5);
+  --shadow-lg: 0 20px 60px rgba(0,0,0,0.6);
+  --shadow-glass: 0 8px 32px rgba(0,0,0,0.4);
+  --icon-stroke: #8e8e93;
+  --hover-text: #f5f5f7;
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html, body {
@@ -66,130 +85,153 @@ body {
   font-weight: 400;
   display: flex; 
   min-height: 100vh;
-  transition: background .5s ease, color .5s ease;
+  transition: background .6s var(--transition), color .6s var(--transition);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 .pixel { font-family: var(--font-pixel); letter-spacing: 0; }
 
+/* ===== 玻璃侧边栏 ===== */
 .sidebar {
-  width: 280px; flex-shrink: 0;
+  width: 200px; flex-shrink: 0;
   border-right: 1px solid var(--border);
-  padding: 48px 36px;
+  padding: 24px 14px;
   display: flex; flex-direction: column;
   position: sticky; top: 0; height: 100vh;
-  transition: border-color .5s ease;
+  transition: border-color .6s var(--transition), background .6s var(--transition);
+  background: var(--surface);
+  backdrop-filter: var(--glass-blur) var(--glass-saturate);
+  -webkit-backdrop-filter: var(--glass-blur) var(--glass-saturate);
+  box-shadow: var(--shadow-glass);
 }
-.sidebar .logo h1 {
-  font-family: var(--font-pixel);
-  font-size: 24px; font-weight: 400;
-  color: var(--brand);
-  transition: color .5s ease;
-  animation: fadeSlideIn .8s ease both;
-  line-height: 1.6;
+.sidebar .brand-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border-light);
 }
-.sidebar .logo p {
-  font-family: var(--font-pixel);
-  font-size: 9px; font-weight: 400;
-  color: var(--text-tertiary);
-  margin-top: 4px;
-  transition: color .5s ease;
-  animation: fadeSlideIn .8s .1s ease both;
+.sidebar .brand-icon img {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-md);
+  object-fit: contain;
+  transition: transform .4s var(--transition), filter .6s var(--transition);
+  filter: drop-shadow(0 2px 8px rgba(0,0,0,0.06));
 }
-.sidebar .divider {
-  width: 24px; height: 1px;
-  background: var(--border);
-  margin: 32px 0;
-  transition: background .5s ease;
+.sidebar .brand-icon img:hover {
+  transform: scale(1.04);
 }
 .sidebar nav { flex: 1; }
 .sidebar nav a {
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: 10px;
   font-family: var(--font-body);
-  font-size: 13px; font-weight: 400;
+  font-size: 12px; font-weight: 460;
   color: var(--text-secondary);
   text-decoration: none;
-  padding: 10px 0;
-  letter-spacing: 1px;
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+  letter-spacing: -0.2px;
   cursor: pointer;
-  transition: color .3s, transform .2s;
-  animation: fadeSlideIn .6s ease both;
+  transition: all .3s var(--transition);
+  margin-bottom: 1px;
 }
-.sidebar nav a:nth-child(1) { animation-delay: .15s; }
-.sidebar nav a:nth-child(2) { animation-delay: .2s; }
-.sidebar nav a:nth-child(3) { animation-delay: .25s; }
-.sidebar nav a:nth-child(4) { animation-delay: .3s; }
-.sidebar nav a:hover { color: var(--hover-text); transform: translateX(4px); }
-.sidebar nav a.active { color: var(--hover-text); font-weight: 500; }
+.sidebar nav a .nav-icon {
+  font-size: 18px;
+  opacity: 0.5;
+  transition: opacity .3s var(--transition);
+}
+.sidebar nav a:hover { 
+  color: var(--hover-text); 
+  background: var(--accent-light);
+}
+.sidebar nav a:hover .nav-icon {
+  opacity: 1;
+}
+.sidebar nav a.active { 
+  color: var(--hover-text); 
+  font-weight: 510;
+  background: var(--accent-light);
+}
+.sidebar nav a.active .nav-icon {
+  opacity: 1;
+  color: var(--accent);
+}
 .sidebar-bottom {
-  padding: 16px 0 0;
+  padding: 14px 0 0;
   border-top: 1px solid var(--border-light);
-  display: flex; flex-direction: column; gap: 18px;
-  transition: border-color .5s ease;
+  display: flex; flex-direction: column; gap: 10px;
+  transition: border-color .6s var(--transition);
 }
 .sidebar .status {
-  display: flex; align-items: center; gap: 8px;
+  display: flex; align-items: center; gap: 7px;
+  padding: 2px 0;
 }
 .sidebar .status .dot {
-  width: 7px; height: 7px; border-radius: 50%;
-  background: #34a853;
-  animation: pulse 2s infinite;
+  width: 5px; height: 5px; border-radius: 50%;
+  background: #34c759;
+  animation: pulse 2.4s ease-in-out infinite;
 }
-@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.5} }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
 .sidebar .status span {
-  font-size: 12px; font-weight: 400;
-  color: var(--text-secondary); letter-spacing: 1px;
+  font-size: 10px; font-weight: 460;
+  color: var(--text-secondary);
+  letter-spacing: 0.2px;
   font-family: var(--font-body);
-  transition: color .5s ease;
+  transition: color .6s var(--transition);
 }
-
-.sidebar-row { display: flex; align-items: center; gap: 16px; }
+.sidebar-row { display: flex; align-items: center; gap: 8px; }
 .sidebar-row > div { flex-shrink: 0; }
-
 .lang-toggle {
-  display: flex; gap: 6px;
+  display: flex; gap: 3px;
 }
 .lang-toggle span {
-  font-size: 11px; font-weight: 400;
+  font-size: 9px; font-weight: 400;
   font-family: var(--font-pixel);
   color: var(--text-tertiary);
   cursor: pointer;
-  padding: 4px 8px;
-  border-radius: 4px;
-  transition: color .3s, background .3s;
+  padding: 2px 7px;
+  border-radius: var(--radius-sm);
+  transition: all .3s var(--transition);
 }
 .lang-toggle span:hover { color: var(--hover-text); }
 .lang-toggle span.active {
   color: var(--hover-text);
-  background: var(--border-light);
+  background: var(--accent-light);
 }
-
 .theme-toggle {
-  display: flex; align-items: center; gap: 10px;
+  display: flex; align-items: center; gap: 6px;
   cursor: pointer; user-select: none;
-  font-size: 12px; font-weight: 400;
+  font-size: 10px; font-weight: 460;
   color: var(--text-secondary);
-  letter-spacing: 1px;
+  letter-spacing: 0.2px;
   font-family: var(--font-body);
-  transition: color .3s;
+  transition: color .3s var(--transition);
+  padding: 2px 0;
 }
 .theme-toggle:hover { color: var(--hover-text); }
 .theme-toggle .track {
-  width: 38px; height: 20px;
-  border-radius: 10px;
+  width: 28px; height: 16px;
+  border-radius: 8px;
   background: var(--border);
   position: relative;
-  transition: background .4s ease;
+  transition: background .5s var(--transition);
 }
 .theme-toggle .thumb {
-  width: 16px; height: 16px;
+  width: 12px; height: 12px;
   border-radius: 50%;
   background: #fff;
   position: absolute; top: 2px; left: 2px;
-  transition: transform .4s cubic-bezier(.4,0,.2,1), background .4s;
-  box-shadow: 0 1px 3px rgba(0,0,0,.15);
+  transition: transform .5s cubic-bezier(.34,1.56,.64,1), background .4s;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.12);
 }
-.dark .theme-toggle .thumb { transform: translateX(18px); background: #0d0d0d; }
-.dark .theme-toggle .track { background: #e8eaed; }
+.dark .theme-toggle .thumb { transform: translateX(12px); background: #1c1c1e; }
+.dark .theme-toggle .track { background: #3a3a3c; }
 
+/* ===== 主内容 ===== */
 .main { 
   flex: 1; 
   min-width: 0; 
@@ -197,6 +239,7 @@ body {
   overflow: hidden; 
   display: flex;
   flex-direction: column;
+  background: var(--bg);
 }
 
 .page {
@@ -204,238 +247,471 @@ body {
   flex-direction: column;
   width: 100%;
   min-height: 100%;
-  animation: fadeSlideIn .45s ease both;
+  animation: fadeSlide .55s var(--transition) both;
 }
 .page.active {
   display: flex;
 }
 
-.hero-strip {
-  padding: 80px 64px 48px;
-  border-bottom: 1px solid var(--border-light);
-  transition: border-color .5s ease;
-}
-.hero-strip h2 {
-  font-family: var(--font-pixel);
-  font-size: 28px; font-weight: 400;
-  line-height: 1.6;
-  color: var(--brand);
-  transition: color .5s ease;
-}
-.hero-strip .sub {
-  font-family: var(--font-body);
-  font-size: 15px; font-weight: 300;
-  color: var(--text-secondary); margin-top: 8px;
-  letter-spacing: 2px;
-  transition: color .5s ease;
+@keyframes fadeSlide {
+  from { opacity: 0; transform: translateY(12px) scale(0.99); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
 }
 
-.cards-row {
-  display: flex; gap: 24px;
-  padding: 48px 64px; flex-wrap: wrap;
-}
-.card {
-  flex: 1; min-width: 220px;
+/* ===== 首页 - 液态玻璃 ===== */
+.home-hero {
+  padding: 48px 56px 32px;
   background: var(--bg);
-  border: 1px solid var(--border);
-  border-radius: 24px;
-  padding: 48px 36px;
-  transition: box-shadow .35s ease, transform .35s ease, border-color .5s ease, background .5s ease;
+  border-bottom: 1px solid var(--border-light);
+  transition: border-color .6s var(--transition);
 }
-.card:hover {
-  box-shadow: 0 1px 3px var(--shadow), 0 4px 16px var(--shadow);
+.home-hero .tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--font-pixel);
+  font-size: 8px;
+  color: var(--accent);
+  background: var(--accent-light);
+  padding: 3px 12px;
+  border-radius: 20px;
+  letter-spacing: 0.5px;
+  margin-bottom: 10px;
+  transition: all .4s var(--transition);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+.home-hero .tag .material-icons {
+  font-size: 12px;
+}
+.home-hero h1 {
+  font-family: var(--font-pixel);
+  font-size: 30px;
+  font-weight: 400;
+  color: var(--brand);
+  line-height: 1.15;
+  transition: color .6s var(--transition);
+  letter-spacing: -0.5px;
+}
+.home-hero h1 .highlight {
+  color: var(--accent);
+  position: relative;
+}
+.home-hero h1 .highlight::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--accent);
+  border-radius: 2px;
+  opacity: 0.25;
+}
+.home-hero .desc {
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--text-secondary);
+  margin-top: 8px;
+  max-width: 500px;
+  line-height: 1.6;
+  letter-spacing: -0.1px;
+  transition: color .6s var(--transition);
+}
+.home-hero .actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+.home-hero .actions .btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--accent);
+  color: var(--btn-text);
+  text-decoration: none;
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 510;
+  padding: 10px 22px;
+  border-radius: 50px;
+  transition: all .4s var(--transition);
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 2px 12px var(--accent-glow);
+}
+.home-hero .actions .btn-primary:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 8px 28px var(--accent-glow);
+}
+.home-hero .actions .btn-primary .material-icons {
+  font-size: 18px;
+}
+.home-hero .actions .btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--surface);
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 460;
+  padding: 10px 22px;
+  border-radius: 50px;
+  transition: all .4s var(--transition);
+  border: 1px solid var(--border);
+  cursor: pointer;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+.home-hero .actions .btn-secondary:hover {
+  border-color: var(--accent);
+  color: var(--hover-text);
+  background: var(--accent-light);
   transform: translateY(-2px);
 }
-.card .icon {
-  width: 40px; height: 40px;
-  border-radius: 10px;
-  display: flex; align-items: center; justify-content: center;
-  margin-bottom: 28px;
-  transition: transform .3s ease;
+
+/* 统计卡片 - 液态玻璃 */
+.home-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  padding: 28px 56px 20px;
 }
-.card:hover .icon { transform: scale(1.1); }
-.card .icon svg { transition: stroke .5s ease; }
-.card h3 {
+.home-stats .stat-card {
+  background: var(--surface);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  padding: 18px 20px;
+  transition: all .5s var(--transition);
+  backdrop-filter: var(--glass-blur) var(--glass-saturate);
+  -webkit-backdrop-filter: var(--glass-blur) var(--glass-saturate);
+  box-shadow: var(--shadow-sm);
+}
+.home-stats .stat-card:hover {
+  border-color: var(--accent);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-4px);
+  background: var(--surface);
+}
+.home-stats .stat-card .stat-label {
+  font-family: var(--font-body);
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--text-tertiary);
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+}
+.home-stats .stat-card .stat-value {
   font-family: var(--font-pixel);
-  font-size: 10px; font-weight: 400;
+  font-size: 20px;
+  font-weight: 400;
+  color: var(--text);
+  margin-top: 4px;
+  transition: color .6s var(--transition);
+}
+.home-stats .stat-card .stat-sub {
+  font-family: var(--font-body);
+  font-size: 10px;
+  font-weight: 400;
+  color: var(--text-tertiary);
+  margin-top: 2px;
+  letter-spacing: 0.2px;
+}
+
+/* 特色卡片 - 液态玻璃 */
+.home-features {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  padding: 0 56px 28px;
+}
+.home-features .feat-item {
+  background: var(--surface);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  padding: 20px 18px;
+  transition: all .5s var(--transition);
+  backdrop-filter: var(--glass-blur) var(--glass-saturate);
+  -webkit-backdrop-filter: var(--glass-blur) var(--glass-saturate);
+  box-shadow: var(--shadow-sm);
+}
+.home-features .feat-item:hover {
+  transform: translateY(-4px);
+  border-color: var(--accent);
+  box-shadow: var(--shadow-md);
+}
+.home-features .feat-item .feat-icon {
+  color: var(--accent);
+  margin-bottom: 8px;
+  display: inline-block;
+  transition: transform .4s var(--transition);
+}
+.home-features .feat-item:hover .feat-icon {
+  transform: scale(1.08);
+}
+.home-features .feat-item .feat-icon .material-icons {
+  font-size: 24px;
+}
+.home-features .feat-item h3 {
+  font-family: var(--font-pixel);
+  font-size: 10px;
+  font-weight: 400;
+  color: var(--text);
+  letter-spacing: 0.3px;
+  transition: color .6s var(--transition);
+}
+.home-features .feat-item p {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 400;
   color: var(--text-secondary);
-  margin-bottom: 12px;
+  margin-top: 4px;
+  line-height: 1.5;
+  letter-spacing: 0.1px;
+  transition: color .6s var(--transition);
 }
-.card .value {
+
+/* ===== 信息页 ===== */
+.info-grid {
+  display: flex; gap: 14px;
+  padding: 28px 56px 20px; 
+  flex-wrap: wrap;
+}
+.info-grid .card {
+  flex: 1; min-width: 160px;
+  background: var(--surface);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  padding: 22px 20px;
+  transition: all .5s var(--transition);
+  backdrop-filter: var(--glass-blur) var(--glass-saturate);
+  -webkit-backdrop-filter: var(--glass-blur) var(--glass-saturate);
+  box-shadow: var(--shadow-sm);
+}
+.info-grid .card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-4px);
+  border-color: var(--accent);
+}
+.info-grid .card .icon {
+  width: 34px; height: 34px;
+  border-radius: var(--radius-sm);
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 12px;
+  background: var(--accent-light);
+  transition: all .4s var(--transition);
+  color: var(--accent);
+}
+.info-grid .card:hover .icon { 
+  transform: scale(1.06);
+}
+.info-grid .card .icon .material-icons {
+  font-size: 20px;
+}
+.info-grid .card h3 {
   font-family: var(--font-pixel);
-  font-size: 18px; font-weight: 400;
+  font-size: 8px; font-weight: 400;
+  color: var(--text-secondary);
+  margin-bottom: 4px;
+  letter-spacing: 0.4px;
+}
+.info-grid .card .value {
+  font-family: var(--font-pixel);
+  font-size: 14px; font-weight: 400;
   color: var(--text);
   word-break: break-all;
-  line-height: 1.6;
-  transition: color .5s ease;
+  line-height: 1.4;
+  transition: color .6s var(--transition);
 }
-.card .value.copy { cursor: pointer; position: relative; }
-.card .value.copy::after {
+.info-grid .card .value.copy { 
+  cursor: pointer; 
+  position: relative; 
+  display: inline-block;
+}
+.info-grid .card .value.copy::after {
   content: attr(data-tip);
   position: absolute;
-  top: -28px; left: 50%;
-  transform: translateX(-50%);
+  top: -22px; left: 50%;
+  transform: translateX(-50%) scale(0.92);
   font-family: var(--font-body);
-  font-size: 11px; font-weight: 400;
+  font-size: 9px; font-weight: 460;
   color: var(--text-secondary);
-  background: var(--border-light);
-  padding: 4px 12px; border-radius: 6px;
+  background: var(--surface);
+  padding: 2px 10px;
+  border-radius: var(--radius-sm);
   opacity: 0; pointer-events: none;
-  transition: opacity .2s;
+  transition: all .25s var(--transition);
   white-space: nowrap;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: var(--shadow-sm);
 }
-.card .value.copy:hover::after { opacity: 1; }
+.info-grid .card .value.copy:hover::after { 
+  opacity: 1; 
+  transform: translateX(-50%) scale(1);
+}
 
+/* ===== 下载页 ===== */
 .dl-section {
-  padding: 48px 64px;
+  padding: 28px 56px 20px;
 }
 .dl-card {
   background: var(--surface);
-  border-radius: 24px;
-  padding: 56px 48px;
-  display: flex; align-items: center; justify-content: space-between;
-  gap: 32px;
-  transition: background .5s ease;
+  border-radius: var(--radius-md);
+  padding: 28px 30px;
+  display: flex; 
+  align-items: center; 
+  justify-content: space-between;
+  gap: 20px;
+  transition: all .5s var(--transition);
+  border: 1px solid var(--border-light);
+  backdrop-filter: var(--glass-blur) var(--glass-saturate);
+  -webkit-backdrop-filter: var(--glass-blur) var(--glass-saturate);
+  box-shadow: var(--shadow-sm);
+}
+.dl-card:hover {
+  border-color: var(--accent);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
 }
 .dl-card .text h2 {
   font-family: var(--font-pixel);
-  font-size: 20px; font-weight: 400;
-  line-height: 1.6;
+  font-size: 16px; font-weight: 400;
+  line-height: 1.3;
   color: var(--brand);
-  margin-bottom: 6px;
-  transition: color .5s ease;
+  margin-bottom: 2px;
+  transition: color .6s var(--transition);
 }
 .dl-card .text p {
   font-family: var(--font-body);
-  font-size: 14px; font-weight: 300;
-  color: var(--text-secondary); letter-spacing: 2px;
-  transition: color .5s ease;
+  font-size: 12px; font-weight: 400;
+  color: var(--text-secondary); 
+  letter-spacing: 0.2px;
+  transition: color .6s var(--transition);
 }
 .dl-btn {
   display: inline-flex; align-items: center; gap: 6px;
-  background: var(--btn-bg); color: var(--btn-text);
+  background: var(--accent);
+  color: var(--btn-text);
   text-decoration: none;
-  font-family: var(--font-pixel);
-  font-size: 11px; font-weight: 400;
-  padding: 14px 28px;
-  border-radius: 12px;
-  transition: transform .3s, box-shadow .3s, background .5s ease, color .5s ease;
+  font-family: var(--font-body);
+  font-size: 11px; font-weight: 510;
+  padding: 10px 22px;
+  border-radius: 50px;
+  transition: all .4s var(--transition);
   flex-shrink: 0;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 2px 12px var(--accent-glow);
 }
 .dl-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px var(--shadow);
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 8px 28px var(--accent-glow);
 }
-.dl-btn svg { width: 16px; height: 16px; }
-
-.features {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  padding: 0 64px 48px;
-}
-.feature-item {
-  text-align: center; padding: 36px 20px;
-  transition: transform .3s ease;
-}
-.feature-item:hover { transform: translateY(-4px); }
-.feature-item .label {
-  font-family: var(--font-pixel);
-  font-size: 28px; font-weight: 400;
-  color: var(--text);
-  transition: color .5s ease;
-  line-height: 1.6;
-}
-.feature-item .desc {
-  font-family: var(--font-body);
-  font-size: 12px; font-weight: 400;
-  color: var(--text-secondary); margin-top: 6px;
-  letter-spacing: 1px;
-  transition: color .5s ease;
+.dl-btn .material-icons {
+  font-size: 18px;
 }
 
-.info-page .info-grid {
-  display: flex; gap: 24px;
-  padding: 80px 64px; flex-wrap: wrap;
-}
-
+/* ===== 页脚 ===== */
 footer {
   border-top: 1px solid var(--border-light);
-  padding: 32px 64px;
+  padding: 18px 56px;
   display: flex; 
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-  transition: border-color .5s ease;
+  gap: 8px;
+  transition: border-color .6s var(--transition);
   margin-top: auto;
   width: 100%;
+  background: var(--bg);
 }
 footer .copy {
   font-family: var(--font-body);
-  font-size: 12px; font-weight: 300;
-  color: var(--text-tertiary); letter-spacing: 1px;
-  transition: color .5s ease;
+  font-size: 10px; font-weight: 400;
+  color: var(--text-tertiary); 
+  letter-spacing: 0.2px;
+  transition: color .6s var(--transition);
+}
+footer .footer-links {
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
-  gap: 8px;
+  gap: 12px;
+  flex-wrap: wrap;
 }
-footer .links a {
+footer .footer-links a {
   font-family: var(--font-body);
-  font-size: 12px; font-weight: 400; color: var(--text-secondary);
-  text-decoration: none; margin-left: 24px; letter-spacing: 1px;
-  cursor: pointer;
-  transition: color .3s;
+  font-size: 10px; font-weight: 400;
+  color: var(--text-tertiary);
+  text-decoration: none;
+  letter-spacing: 0.2px;
+  transition: color .3s var(--transition);
 }
-footer .links a:hover { color: var(--hover-text); }
+footer .footer-links a:hover {
+  color: var(--hover-text);
+}
+footer .footer-links .friend-link {
+  color: var(--accent);
+}
+footer .footer-links .friend-link:hover {
+  color: var(--accent);
+  text-decoration: underline;
+}
 footer .disclaimer {
   flex-basis: 100%;
   text-align: center;
   font-family: var(--font-body);
-  font-size: 11px; font-weight: 300;
-  color: var(--text-tertiary); letter-spacing: 1px;
-  transition: color .5s ease;
-}
-footer .icp-link {
-  font-family: var(--font-body);
-  font-size: 12px; font-weight: 300;
-  color: var(--text-tertiary);
-  text-decoration: none;
-  letter-spacing: 1px;
-  transition: color .3s;
-  margin-left: 8px;
-}
-footer .icp-link:hover {
-  color: var(--hover-text);
+  font-size: 9px; font-weight: 400;
+  color: var(--text-tertiary); 
+  letter-spacing: 0.2px;
+  transition: color .6s var(--transition);
 }
 
-@keyframes fadeSlideIn {
-  from { opacity: 0; transform: translateY(16px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
+/* ===== Toast ===== */
 .toast {
   position: fixed;
   bottom: 40px; left: 50%;
-  transform: translateX(-50%);
-  background: var(--toast-bg); color: var(--toast-text);
-  padding: 12px 28px;
-  border-radius: 8px;
+  transform: translateX(-50%) scale(0.92);
+  background: var(--toast-bg);
+  color: var(--toast-text);
+  padding: 10px 24px;
+  border-radius: 50px;
   font-family: var(--font-pixel);
-  font-size: 10px; font-weight: 400;
+  font-size: 9px; font-weight: 400;
   opacity: 0;
-  transition: opacity .3s, background .5s ease, color .5s ease;
+  transition: all .4s var(--transition);
   pointer-events: none;
   z-index: 999;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: var(--shadow-lg);
 }
-.toast.show { opacity: 1; }
+.toast.show { 
+  opacity: 1; 
+  transform: translateX(-50%) scale(1);
+}
 
-/* 连接丢失页面 */
+/* ===== 连接丢失 ===== */
 .sidebar nav a.connlost-link {
-  color: #ff6b5e;
-  animation: connlost-blink 1.6s infinite;
+  color: #ff3b30;
 }
-.sidebar nav a.connlost-link:hover { color: #ffb3a8; }
-.sidebar nav a.connlost-link.active { color: #ff6b5e; font-weight: 500; }
+.sidebar nav a.connlost-link .nav-icon {
+  opacity: 1;
+  color: #ff3b30;
+}
+.sidebar nav a.connlost-link:hover { 
+  color: #ff3b30;
+  background: rgba(255, 59, 48, 0.10);
+}
+.sidebar nav a.connlost-link.active { 
+  color: #ff3b30; 
+  font-weight: 510;
+  background: rgba(255, 59, 48, 0.10);
+}
 
 .connlost-page {
   min-height: 100vh;
@@ -472,61 +748,61 @@ footer .icp-link:hover {
   max-width: 560px; width: 100%;
 }
 .connlost-en {
-  font-size: 22px; letter-spacing: 4px;
+  font-size: 20px; letter-spacing: 4px;
   color: #ff6b5e; text-shadow: 0 0 18px rgba(255,80,60,.55);
   animation: connlost-blink 1.2s infinite;
-  margin-bottom: 14px;
+  margin-bottom: 12px;
 }
 .connlost-title {
-  font-size: 46px; letter-spacing: 10px; color: #fff;
+  font-size: 40px; letter-spacing: 8px; color: #fff;
   text-shadow: 0 0 24px rgba(120,160,255,.5);
-  margin-bottom: 18px;
+  margin-bottom: 16px;
   animation: connlost-shake 2.4s infinite;
 }
 .connlost-sub {
   font-family: var(--font-body);
-  font-size: 14px; letter-spacing: 2px; color: #9aa5bd;
-  margin-bottom: 28px;
+  font-size: 13px; letter-spacing: 2px; color: #9aa5bd;
+  margin-bottom: 24px;
 }
 .connlost-panel {
   background: rgba(20,26,44,.75);
   border: 2px solid #2c3550;
   box-shadow: inset 0 0 30px rgba(0,0,0,.45), 0 8px 30px rgba(0,0,0,.4);
   border-radius: 10px;
-  padding: 20px 24px;
-  margin-bottom: 22px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
 }
 .connlost-row {
   display: flex; align-items: center; justify-content: space-between;
-  gap: 12px; padding: 10px 0;
+  gap: 12px; padding: 8px 0;
 }
 .connlost-row + .connlost-row { border-top: 1px dashed rgba(120,140,190,.25); }
-.connlost-label { font-size: 12px; color: #7f8aa8; letter-spacing: 2px; }
+.connlost-label { font-size: 11px; color: #7f8aa8; letter-spacing: 2px; }
 .connlost-value {
-  font-size: 15px; color: #cfe0ff; letter-spacing: 1px; word-break: break-all;
+  font-size: 14px; color: #cfe0ff; letter-spacing: 1px; word-break: break-all;
   text-align: right;
 }
 .connlost-value.copy { cursor: pointer; position: relative; }
 .connlost-value.copy::after {
   content: attr(data-tip);
-  position: absolute; top: -26px; right: 0;
-  font-size: 11px; color: #9aa5bd; background: rgba(15,20,35,.9);
-  padding: 4px 10px; border-radius: 4px; border: 1px solid #2c3550;
+  position: absolute; top: -24px; right: 0;
+  font-size: 10px; color: #9aa5bd; background: rgba(15,20,35,.9);
+  padding: 3px 8px; border-radius: 4px; border: 1px solid #2c3550;
   opacity: 0; pointer-events: none; transition: opacity .2s;
   white-space: nowrap;
 }
 .connlost-value.copy:hover::after { opacity: 1; }
 .connlost-hint {
-  font-size: 12px; color: #7f8aa8; letter-spacing: 2px;
-  margin-bottom: 14px; min-height: 18px;
+  font-size: 11px; color: #7f8aa8; letter-spacing: 2px;
+  margin-bottom: 12px; min-height: 16px;
 }
-.connlost-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+.connlost-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
 .mc-btn {
   font-family: var(--font-pixel);
-  font-size: 14px; letter-spacing: 2px;
+  font-size: 13px; letter-spacing: 2px;
   color: #fff; background: #5f646e;
   border: 2px solid #000;
-  padding: 10px 26px; cursor: pointer;
+  padding: 8px 22px; cursor: pointer;
   box-shadow: inset -2px -2px 0 #383c44, inset 2px 2px 0 #8b919c, 0 4px 12px rgba(0,0,0,.5);
   text-shadow: 2px 2px 0 rgba(0,0,0,.6);
   transition: background .2s, transform .15s;
@@ -574,28 +850,40 @@ footer .icp-link:hover {
     flex-direction: row; 
     align-items: center; 
     justify-content: space-between;
-    padding: 16px 20px; 
+    padding: 10px 14px; 
     flex-wrap: wrap; 
-    gap: 10px;
+    gap: 4px;
     flex-shrink: 0;
+    background: var(--surface);
+    backdrop-filter: var(--glass-blur) var(--glass-saturate);
+    -webkit-backdrop-filter: var(--glass-blur) var(--glass-saturate);
+  }
+  .sidebar .brand-icon {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+  }
+  .sidebar .brand-icon img {
+    width: 36px;
+    height: 36px;
   }
   .sidebar nav { 
     display: flex; 
-    gap: 12px; 
+    gap: 2px; 
     flex: 1; 
     justify-content: flex-end; 
     flex-wrap: wrap; 
   }
-  .sidebar .divider, 
+  .sidebar nav a { 
+    padding: 5px 8px; 
+    font-size: 11px;
+    gap: 5px;
+  }
+  .sidebar nav a .nav-icon {
+    font-size: 16px;
+  }
   .sidebar-bottom { 
     display: none; 
-  }
-  .sidebar .logo h1 { 
-    font-size: 18px; 
-  }
-  .sidebar nav a { 
-    padding: 4px 0; 
-    font-size: 12px; 
   }
   
   .main {
@@ -615,85 +903,87 @@ footer .icp-link:hover {
     flex: 1;
   }
   
-  .hero-strip { 
-    padding: 28px 20px 20px; 
+  .home-hero {
+    padding: 24px 18px 16px;
   }
-  .hero-strip h2 { 
-    font-size: 20px; 
+  .home-hero h1 {
+    font-size: 24px;
   }
-  .hero-strip .sub {
+  .home-hero .desc {
     font-size: 13px;
   }
-  .features { 
-    padding: 0 20px 24px; 
-    grid-template-columns: 1fr; 
+  
+  .home-stats {
+    grid-template-columns: 1fr 1fr;
+    padding: 18px 18px 10px;
+    gap: 10px;
   }
-  .feature-item {
-    padding: 20px 16px;
+  .home-stats .stat-card {
+    padding: 14px 16px;
   }
-  .feature-item .label { 
-    font-size: 22px; 
+  .home-stats .stat-card .stat-value {
+    font-size: 17px;
   }
-  .cards-row, 
-  .info-page .info-grid { 
-    padding: 20px; 
+  
+  .home-features {
+    grid-template-columns: 1fr;
+    padding: 0 18px 18px;
+    gap: 10px;
   }
-  .info-page .info-grid {
-    padding: 20px;
+  .home-features .feat-item {
+    padding: 16px 14px;
   }
+  
+  .info-grid { 
+    padding: 18px 18px 10px; 
+    gap: 10px;
+  }
+  .info-grid .card {
+    padding: 18px 16px;
+    min-width: 120px;
+  }
+  .info-grid .card .value {
+    font-size: 13px;
+  }
+  
   .dl-section { 
-    padding: 20px; 
+    padding: 18px 18px 10px; 
   }
   .dl-card { 
     flex-direction: column; 
     text-align: center; 
-    padding: 28px 20px; 
+    padding: 20px 16px; 
   }
   .dl-card .text h2 {
-    font-size: 18px;
+    font-size: 15px;
   }
   .dl-card .text p {
-    font-size: 13px;
+    font-size: 11px;
   }
   .dl-btn {
-    padding: 12px 24px;
-    font-size: 10px;
-  }
-  footer { 
-    flex-direction: column; 
-    gap: 10px; 
-    text-align: center; 
-    padding: 16px 20px;
-    margin-top: 0;
-  }
-  footer .copy {
-    justify-content: center;
-    font-size: 11px;
-  }
-  footer .links {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 10px;
-  }
-  footer .links a {
-    margin-left: 0;
-    font-size: 11px;
-  }
-  footer .icp-link {
-    margin-left: 0;
-    font-size: 11px;
-  }
-  footer .disclaimer {
+    padding: 8px 20px;
     font-size: 10px;
   }
   
-  .card {
-    padding: 28px 20px;
-    min-width: 160px;
+  footer { 
+    flex-direction: column; 
+    gap: 6px; 
+    text-align: center; 
+    padding: 12px 18px;
+    margin-top: 0;
   }
-  .card .value {
-    font-size: 15px;
+  footer .copy {
+    font-size: 9px;
+  }
+  footer .footer-links {
+    justify-content: center;
+    gap: 10px;
+  }
+  footer .footer-links a {
+    font-size: 9px;
+  }
+  footer .disclaimer {
+    font-size: 8px;
   }
   
   .connlost-page {
@@ -718,49 +1008,60 @@ footer .icp-link:hover {
   }
   .mc-btn {
     font-size: 12px;
-    padding: 8px 20px;
+    padding: 8px 18px;
   }
 }
 
 @media (max-width: 480px) {
   .sidebar {
-    padding: 12px 16px;
+    padding: 8px 10px;
   }
-  .sidebar .logo h1 {
-    font-size: 16px;
+  .sidebar .brand-icon img {
+    width: 30px;
+    height: 30px;
   }
   .sidebar nav a {
-    font-size: 11px;
-    padding: 3px 0;
+    font-size: 10px;
+    padding: 4px 6px;
   }
-  .hero-strip {
-    padding: 20px 16px 16px;
+  .sidebar nav a .nav-icon {
+    font-size: 14px;
   }
-  .hero-strip h2 {
-    font-size: 18px;
+  .home-hero {
+    padding: 18px 12px 12px;
   }
-  .features {
-    padding: 0 16px 16px;
+  .home-hero h1 {
+    font-size: 20px;
   }
-  .cards-row, .info-page .info-grid {
-    padding: 16px;
-    gap: 16px;
+  .home-hero .desc {
+    font-size: 12px;
+  }
+  .home-stats {
+    grid-template-columns: 1fr;
+    padding: 12px 12px 6px;
+  }
+  .home-features {
+    padding: 0 12px 14px;
+  }
+  .info-grid {
+    padding: 12px 12px 6px;
+    gap: 8px;
   }
   .dl-section {
-    padding: 16px;
+    padding: 12px 12px 6px;
   }
   .dl-card {
-    padding: 20px 16px;
+    padding: 16px 12px;
   }
   footer {
-    padding: 12px 16px;
+    padding: 10px 12px;
   }
-  .card {
-    padding: 20px 16px;
-    min-width: 140px;
+  .info-grid .card {
+    padding: 14px 12px;
+    min-width: 100px;
   }
-  .card .value {
-    font-size: 14px;
+  .info-grid .card .value {
+    font-size: 12px;
   }
 }
 </style>
@@ -768,15 +1069,22 @@ footer .icp-link:hover {
 <body>
 
 <aside class="sidebar">
-  <div class="logo">
-    <h1 data-i18n="logo">澜云阁</h1>
-    <p>LANYUNGE</p>
+  <div class="brand-icon">
+    <img src="server-icon.png" alt="澜云阁" onerror="this.style.display='none'">
   </div>
-  <div class="divider"></div>
   <nav>
-    <a data-page="home" class="active" onclick="navigateTo('home')" data-i18n="nav.home">首页</a>
-    <a data-page="info" onclick="navigateTo('info')" data-i18n="nav.info">服务器信息</a>
-    <a data-page="download" onclick="navigateTo('download')" data-i18n="nav.dl">客户端下载</a>
+    <a data-page="home" class="active" onclick="navigateTo('home')">
+      <span class="nav-icon material-icons">home</span>
+      <span data-i18n="nav.home">首页</span>
+    </a>
+    <a data-page="info" onclick="navigateTo('info')">
+      <span class="nav-icon material-icons">wifi_tethering</span>
+      <span data-i18n="nav.info">服务器信息</span>
+    </a>
+    <a data-page="download" onclick="navigateTo('download')">
+      <span class="nav-icon material-icons">cloud_download</span>
+      <span data-i18n="nav.dl">客户端下载</span>
+    </a>
   </nav>
   <div class="sidebar-bottom">
     <div class="sidebar-row">
@@ -786,7 +1094,7 @@ footer .icp-link:hover {
       </div>
     </div>
     <div class="status">
-      <span class="dot"></span><span>Paper</span>
+      <span class="dot"></span><span>Paper 1.20.1</span>
     </div>
     <div class="theme-toggle" onclick="toggleTheme()">
       <div class="track"><div class="thumb"></div></div>
@@ -797,89 +1105,120 @@ footer .icp-link:hover {
 
 <main class="main">
 
+  <!-- ===== 首页 ===== -->
   <div class="page active" id="page-home">
-    <section class="hero-strip">
-      <h2 data-i18n="home.title">澜云阁 Minecraft</h2>
-      <p class="sub" data-i18n="home.sub">高性能 Paper 模组服务器 · 纯净体验</p>
+    <section class="home-hero">
+      <div class="tag">
+        <span class="material-icons">stars</span>
+        <span>公益服</span>
+      </div>
+      <h1>
+        <span data-i18n="home.title">澜云阁</span>
+        <span class="highlight">Minecraft</span>
+      </h1>
+      <p class="desc" data-i18n="home.sub">高性能 Paper 模组服务器 · 纯净生存体验 · 24/7 持续运行</p>
+      <div class="actions">
+        <a class="btn-primary" onclick="navigateTo('download')">
+          <span class="material-icons">play_arrow</span>
+          <span data-i18n="home.btnPlay">开始游戏</span>
+        </a>
+        <a class="btn-secondary" onclick="navigateTo('info')">
+          <span class="material-icons">info</span>
+          <span data-i18n="home.btnInfo">服务器信息</span>
+        </a>
+      </div>
     </section>
-    <div class="features">
-      <div class="feature-item">
-        <div class="label">Paper</div>
-        <div class="desc" data-i18n="home.f1">高性能内核</div>
+
+    <div class="home-stats">
+      <div class="stat-card">
+        <div class="stat-label">服务器核心</div>
+        <div class="stat-value">Paper</div>
+        <div class="stat-sub">高性能优化</div>
       </div>
-      <div class="feature-item">
-        <div class="label">1.20.1</div>
-        <div class="desc" data-i18n="home.f2">游戏版本</div>
+      <div class="stat-card">
+        <div class="stat-label">游戏版本</div>
+        <div class="stat-value">1.20.1</div>
+        <div class="stat-sub">最新稳定版</div>
       </div>
-      <div class="feature-item">
-        <div class="label">24/7</div>
-        <div class="desc" data-i18n="home.f3">持续运行</div>
+      <div class="stat-card">
+        <div class="stat-label">运行状态</div>
+        <div class="stat-value">24/7</div>
+        <div class="stat-sub">持续在线</div>
       </div>
     </div>
-    <footer>
-      <div class="copy" data-i18n="footer.copy">&copy; 2026 澜云阁</div>
-      <div class="disclaimer" data-i18n="footer.disclaimer">本网站不属于Mojang与Microsoft及相关网页</div>
-      <div class="links">
-        <a onclick="navigateTo('download')" data-i18n="footer.dl">客户端下载</a>
-        <a onclick="navigateTo('info')" data-i18n="footer.info">服务器信息</a>
-        <a href="https://icp.gov.moe/?keyword=20260243" target="_blank" class="icp-link">萌ICP备20260243号</a>
+
+    <div class="home-features">
+      <div class="feat-item">
+        <div class="feat-icon"><span class="material-icons">speed</span></div>
+        <h3>高性能内核</h3>
+        <p>基于 Paper 优化，提供流畅的游戏体验，减少卡顿与延迟</p>
       </div>
+      <div class="feat-item">
+        <div class="feat-icon"><span class="material-icons">groups</span></div>
+        <h3>纯净生存</h3>
+        <p>保留原版生存精髓，搭配精选模组，丰富玩法不破坏平衡</p>
+      </div>
+      <div class="feat-item">
+        <div class="feat-icon"><span class="material-icons">security</span></div>
+        <h3>稳定运行</h3>
+        <p>专业服务器托管，7×24 小时不间断运行，数据安全可靠</p>
+      </div>
+    </div>
+
+    <footer>
+      <div class="copy">&copy; 2026 技术狐GeoRain</div>
+      <div class="footer-links">
+        <a href="https://icp.gov.moe/?keyword=20260243" target="_blank">萌ICP备20260243号</a>
+        <a href="https://www.clearcraft.cn" target="_blank" class="friend-link">快去试试清晰世界吧! www.clearcraft.cn</a>
+      </div>
+      <div class="disclaimer" data-i18n="footer.disclaimer">本网站不属于Mojang与Microsoft及相关网页</div>
     </footer>
   </div>
 
+  <!-- ===== 服务器信息页 ===== -->
   <div class="page info-page" id="page-info">
-    <section class="hero-strip">
-      <h2 data-i18n="info.title">服务器信息</h2>
-      <p class="sub">mc.georainl.cc.cd</p>
+    <section class="home-hero" style="padding-bottom:16px;border-bottom:1px solid var(--border-light);">
+      <h1 style="font-size:26px;" data-i18n="info.title">服务器信息</h1>
+      <p class="desc" style="font-size:13px;max-width:100%;">mc.georainl.cc.cd</p>
     </section>
     <div class="info-grid">
       <div class="card">
         <div class="icon">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--icon-stroke)" stroke-width="1.5">
-            <rect x="3" y="11" width="18" height="11" rx="2"/>
-            <path d="M7 11V7a5 5 0 0110 0v4"/>
-          </svg>
+          <span class="material-icons">dns</span>
         </div>
         <h3 data-i18n="info.card1">服务器地址</h3>
         <div class="value copy" data-tip-zh="点击复制" data-tip-en="Click to Copy" onclick="copyText('mc.georainl.cc.cd')">mc.georainl.cc.cd</div>
       </div>
       <div class="card">
         <div class="icon">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--icon-stroke)" stroke-width="1.5">
-            <path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/>
-            <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
-            <line x1="12" y1="22.08" x2="12" y2="12"/>
-          </svg>
+          <span class="material-icons">memory</span>
         </div>
         <h3 data-i18n="info.card2">核心类型</h3>
         <div class="value">Paper</div>
       </div>
       <div class="card">
         <div class="icon">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--icon-stroke)" stroke-width="1.5">
-            <circle cx="12" cy="12" r="10"/>
-            <polyline points="12 6 12 12 16 14"/>
-          </svg>
+          <span class="material-icons">info</span>
         </div>
         <h3 data-i18n="info.card3">游戏版本</h3>
         <div class="value">1.20.1</div>
       </div>
     </div>
     <footer>
-      <div class="copy" data-i18n="footer.copy">&copy; 2026 澜云阁</div>
-      <div class="disclaimer" data-i18n="footer.disclaimer">本网站不属于Mojang与Microsoft及相关网页</div>
-      <div class="links">
-        <a onclick="navigateTo('download')" data-i18n="footer.dl">客户端下载</a>
-        <a onclick="navigateTo('home')" data-i18n="footer.home">返回首页</a>
-        <a href="https://icp.gov.moe/?keyword=20260243" target="_blank" class="icp-link">萌ICP备20260243号</a>
+      <div class="copy">&copy; 2026 技术狐GeoRain</div>
+      <div class="footer-links">
+        <a href="https://icp.gov.moe/?keyword=20260243" target="_blank">萌ICP备20260243号</a>
+        <a href="https://www.clearcraft.cn" target="_blank" class="friend-link">快去试试清晰世界吧! www.clearcraft.cn</a>
       </div>
+      <div class="disclaimer" data-i18n="footer.disclaimer">本网站不属于Mojang与Microsoft及相关网页</div>
     </footer>
   </div>
 
+  <!-- ===== 客户端下载页 ===== -->
   <div class="page" id="page-download">
-    <section class="hero-strip">
-      <h2 data-i18n="dl.title">客户端下载</h2>
-      <p class="sub" data-i18n="dl.sub">集成 Forge 模组 · 开箱即玩</p>
+    <section class="home-hero" style="padding-bottom:16px;border-bottom:1px solid var(--border-light);">
+      <h1 style="font-size:26px;" data-i18n="dl.title">客户端下载</h1>
+      <p class="desc" style="font-size:13px;max-width:100%;" data-i18n="dl.sub">集成模组 · 开箱即玩</p>
     </section>
     <div class="dl-section">
       <div class="dl-card">
@@ -888,26 +1227,22 @@ footer .icp-link:hover {
           <p data-i18n="dl.clientSub">适配 1.20.1 · 包含必需模组</p>
         </div>
         <a class="dl-btn" href="https://wwbra.lanzoue.com/iUbXJ41s02ne" target="_blank">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
-            <polyline points="7 10 12 15 17 10"/>
-            <line x1="12" y1="15" x2="12" y2="3"/>
-          </svg>
+          <span class="material-icons">file_download</span>
           <span data-i18n="dl.btn">下载客户端</span>
         </a>
       </div>
     </div>
     <footer>
-      <div class="copy" data-i18n="footer.copy">&copy; 2026 澜云阁</div>
-      <div class="disclaimer" data-i18n="footer.disclaimer">本网站不属于Mojang与Microsoft及相关网页</div>
-      <div class="links">
-        <a onclick="navigateTo('info')" data-i18n="footer.info">服务器信息</a>
-        <a onclick="navigateTo('home')" data-i18n="footer.home">返回首页</a>
-        <a href="https://icp.gov.moe/?keyword=20260243" target="_blank" class="icp-link">萌ICP备20260243号</a>
+      <div class="copy">&copy; 2026 技术狐GeoRain</div>
+      <div class="footer-links">
+        <a href="https://icp.gov.moe/?keyword=20260243" target="_blank">萌ICP备20260243号</a>
+        <a href="https://www.clearcraft.cn" target="_blank" class="friend-link">快去试试清晰世界吧! www.clearcraft.cn</a>
       </div>
+      <div class="disclaimer" data-i18n="footer.disclaimer">本网站不属于Mojang与Microsoft及相关网页</div>
     </footer>
   </div>
 
+  <!-- ===== 连接丢失页 ===== -->
   <div class="page connlost-page" id="page-connlost">
     <div class="connlost-wrap">
       <div class="connlost-en glitch" id="connlostEn" data-text="Disconnected!">Disconnected!</div>
@@ -948,10 +1283,15 @@ var i18n = {
     logo: '澜云阁',
     nav: { home: '首页', info: '服务器信息', dl: '客户端下载' },
     theme: '深色模式',
-    home: { title: '澜云阁 Minecraft', sub: '高性能 Paper 模组服务器 · 纯净体验', f1: '高性能内核', f2: '游戏版本', f3: '持续运行' },
+    home: { 
+      title: '澜云阁', 
+      sub: '高性能 Paper 模组服务器 · 纯净生存体验 · 24/7 持续运行',
+      btnPlay: '开始游戏',
+      btnInfo: '服务器信息'
+    },
     info: { title: '服务器信息', card1: '服务器地址', card2: '核心类型', card3: '游戏版本' },
-    dl: { title: '客户端下载', sub: '集成 Paper 模组 · 开箱即玩', client: '澜云阁客户端', clientSub: '适配 1.20.1 · 包含必需模组', btn: '下载客户端' },
-    footer: { copy: '© 2026 澜云阁', dl: '客户端下载', info: '服务器信息', home: '返回首页', disclaimer: '本网站不属于Mojang与Microsoft及相关网页' },
+    dl: { title: '客户端下载', sub: '集成模组 · 开箱即玩', client: '澜云阁客户端', clientSub: '适配 1.20.1 · 包含必需模组', btn: '下载客户端' },
+    footer: { disclaimer: '本网站不属于Mojang与Microsoft及相关网页' },
     connlost: { sub: '与服务器的连接已丢失', ip: '服务器地址', ver: '游戏版本', hint: '请点击下方按钮重新连接服务器', reconnect: '重新连接', home: '返回首页', nav: '连接丢失' },
     toast: '已复制到剪贴板',
     tip: '点击复制'
@@ -960,10 +1300,15 @@ var i18n = {
     logo: 'LanYunGe',
     nav: { home: 'Home', info: 'Server Info', dl: 'Download' },
     theme: 'Dark Mode',
-    home: { title: 'LanYunGe Minecraft', sub: 'High-performance Paper Server · Pure Experience', f1: 'High Performance', f2: 'Game Version', f3: 'Always Online' },
+    home: { 
+      title: 'LanYunGe', 
+      sub: 'High-performance Paper Server · Pure Survival · 24/7 Uptime',
+      btnPlay: 'Play Now',
+      btnInfo: 'Server Info'
+    },
     info: { title: 'Server Info', card1: 'Server Address', card2: 'Core Type', card3: 'Game Version' },
     dl: { title: 'Download Client', sub: 'Integrated Mods · Ready to Play', client: 'LanYunGe Client', clientSub: 'For 1.20.1 · Essential Mods', btn: 'Download' },
-    footer: { copy: '© 2026 LanYunGe', dl: 'Download', info: 'Server Info', home: 'Home', disclaimer: 'This website is not affiliated with Mojang or Microsoft, nor any related websites.' },
+    footer: { disclaimer: 'This website is not affiliated with Mojang or Microsoft, nor any related websites.' },
     connlost: { sub: 'Connection to the server has been lost', ip: 'Server Address', ver: 'Game Version', hint: 'Click the button below to reconnect', reconnect: 'Reconnect', home: 'Back to Home', nav: 'Connection Lost' },
     toast: 'Copied to clipboard',
     tip: 'Click to Copy'
@@ -1025,7 +1370,6 @@ function switchPage(pageName) {
 
   currentPage = pageName;
 
-  // 触发动画重新播放
   newPage.style.animation = 'none';
   newPage.offsetHeight;
   newPage.style.animation = '';
@@ -1080,7 +1424,7 @@ function maybeShowConnlostBtn() {
   a.className = 'connlost-link';
   a.dataset.page = 'connlost';
   a.setAttribute('data-i18n', 'connlost.nav');
-  a.textContent = i18n[currentLang].connlost.nav;
+  a.innerHTML = '<span class="nav-icon material-icons">signal_wifi_off</span><span>' + i18n[currentLang].connlost.nav + '</span>';
   a.onclick = function(){ navigateTo('connlost'); };
   nav.appendChild(a);
 }
